@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import Modelo.Paciente;
 import Vista.MenuPrimeraVista;
+import Vista.VentanaOpcionesAdministrativo;
 import Vista.LoginAdmin;
 
 
@@ -21,8 +22,11 @@ public class Principal {
 
         //Creacion de instancia para llamar al JFrame del menú principal 
         
-        MenuPrimeraVista menuPrimeraVista = new MenuPrimeraVista();
-        menuPrimeraVista.setVisible(true);
+        /*LoginAdmin loginAdmin = new LoginAdmin();
+        loginAdmin.setVisible(true); */
+        
+        VentanaOpcionesAdministrativo v = new VentanaOpcionesAdministrativo();
+        v.setVisible(true);
         
 
         
