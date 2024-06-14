@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 
 import Modelo.Paciente;
-import Modelo.Persona;
 import Vista.MenuPrimeraVista;
 import Vista.LoginAdmin;
 

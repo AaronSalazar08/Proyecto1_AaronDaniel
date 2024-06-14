@@ -8,11 +8,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import Controlador.Principal;
+
 
 
 import java.awt.event.ActionEvent;

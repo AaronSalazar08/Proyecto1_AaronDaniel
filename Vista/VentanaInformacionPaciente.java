@@ -213,8 +213,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
     
                             //Llamado del Arraylist para guardar los datos del paciente 
     
-                            Controlador.Metodos.RegistrarPacientes(entradaNombrePaciente, entradaCedulaPaciente,
-                            sexoMasculino, edadPaciente, transtornoSeleccionado);
+                            
     
                             JOptionPane.showMessageDialog(null, "Registrado exitosamente");
     
@@ -236,8 +235,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
     
                             String sexoFemenino = botonFemenino.isSelected() ? "Masculino" : "Masculino";
     
-                            Controlador.Metodos.RegistrarPacientes(entradaNombrePaciente, entradaCedulaPaciente,
-                                    sexoFemenino, edadPaciente, transtornoSeleccionado);
+                          
     
                             JOptionPane.showMessageDialog(null, "Registrado exitosamente");
     
