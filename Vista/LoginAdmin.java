@@ -22,7 +22,6 @@ import java.awt.Image;
 
 public class LoginAdmin extends JFrame implements ActionListener {
 
-    //Declarando constantes 
 
     JPanel panelRegistro = new JPanel();
 
