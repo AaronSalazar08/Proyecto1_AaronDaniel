@@ -1,6 +1,6 @@
 package Modelo;
 
-public class Paciente {
+public class Paciente  {
 
   protected String transtorno;
   protected String nombre;
@@ -8,13 +8,9 @@ public class Paciente {
   protected String sexo;
   protected int edad;
 
+public Paciente(String nombre, String cedula, String sexo, int edad, String transtrorno) {
   
-public Paciente(String transtorno, String nombre, String cedula, String sexo, int edad) {
-    this.transtorno = transtorno;
-    this.nombre = nombre;
-    this.cedula = cedula;
-    this.sexo = sexo;
-    this.edad = edad;
+    this.transtorno = transtrorno;
 }
 
 
