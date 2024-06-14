@@ -29,7 +29,7 @@ public class LoginAdmin extends JFrame implements ActionListener {
     public static Metodos metodos;
 
     public JPanel panelRegistro = new JPanel();
-    public JLabel tituloLabel, usuarioLabel, claveLabel, logoPerfil;
+    public JLabel tituloLabel, usuarioLabel, claveLabel, logoPerfil, logoUsuario, logoClave;
     public JButton botonRegistrar, botonVolver;
     public JTextField usuario_txt;
     public JPasswordField clave_psw;
@@ -84,11 +84,19 @@ public class LoginAdmin extends JFrame implements ActionListener {
         usuario_txt.setFont(fuente);
         usuario_txt.setToolTipText("Ingrese su nombre de usuario");
 
+        logoUsuario = new JLabel();
+        logoUsuario.setBounds(255, 193, 30, 25);
+        this.Pintar(this.logoUsuario, "Vista\\Imagenes\\usuarioLogo.png");
+
         clave_psw = new JPasswordField();
         clave_psw.setBounds(40, 260, 250, 30);
         clave_psw.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171)));
         clave_psw.setFont(fuente);
         clave_psw.setToolTipText("Ingrese su contraseña");
+
+        logoClave = new JLabel();
+        logoClave.setBounds(255, 263, 30, 25);
+        this.Pintar(this.logoClave, "Vista\\Imagenes\\claveLogo.png");
 
         // JButton
 
@@ -116,6 +124,8 @@ public class LoginAdmin extends JFrame implements ActionListener {
 
         panelRegistro.add(tituloLabel);
         panelRegistro.add(logoPerfil);
+        panelRegistro.add(logoUsuario);
+        panelRegistro.add(logoClave);
 
         panelRegistro.add(usuarioLabel);
         panelRegistro.add(claveLabel);

@@ -28,7 +28,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
 
     public JPanel panelPrimeraVista = new JPanel();
     public JButton botonAdministrativo, botonPaciente, botonSalir, botonExpendiente, botonCredito, botonUsuario;
-    public JLabel fraseLabel, tituloLabel, labelDescripcion;
+    public JLabel fraseLabel, tituloLabel, labelDescripcion, logoWhatsapp, logoTelefono, numero, whatsapp;
     Font fuenteFrase = new Font("", Font.PLAIN, 16);
     Font fuenteBoton = new Font("Century Schoolbook", Font.PLAIN, 16);
     private ImageIcon imagen;
@@ -60,15 +60,35 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         logo.setBounds(210, 10, 180, 180);
         this.Pintar(this.logo, "Vista\\Imagenes\\logoRegistro.png");
 
+        logoWhatsapp = new JLabel();
+        logoWhatsapp.setBounds(15, 500, 40, 40);
+        this.Pintar(this.logoWhatsapp, "Vista\\Imagenes\\whatsappLogo.png");
+
+        logoTelefono = new JLabel();
+        logoTelefono.setBounds(150, 500, 40, 40);
+        this.Pintar(this.logoTelefono, "Vista\\Imagenes\\telefonoLogo.png");
+
         tituloLabel = new JLabel("Sistema de Registro de Centro de Apoyo ");
         tituloLabel.setBounds(115, 155, 500, 70);
-        Font fuente1 = new Font("Times new Roman", Font.PLAIN, 22); //
+        Font fuente1 = new Font("Times new Roman", Font.PLAIN, 22); 
         tituloLabel.setFont(fuente1);
         tituloLabel.setForeground(new Color(0, 23, 141));
 
+        whatsapp = new JLabel("+506 6098-8878");
+        whatsapp.setBounds(55, 487, 120, 70);
+        Font fuente5 = new Font("Times new Roman", Font.PLAIN, 12); 
+        whatsapp.setFont(fuente5);
+        whatsapp.setForeground(new Color(0, 0, 0));
+
+        numero = new JLabel("+506 2665-0993");
+        numero.setBounds(190, 487, 120, 70);
+        Font fuente3 = new Font("Times new Roman", Font.PLAIN, 12); 
+        numero.setFont(fuente3);
+        numero.setForeground(new Color(0, 0, 0));
+
         JLabel titulo2 = new JLabel(" Solís Salazar");
         titulo2.setBounds(240, 200, 500, 70);
-        Font fuente9 = new Font("Times new Roman", Font.PLAIN, 22); //
+        Font fuente9 = new Font("Times new Roman", Font.PLAIN, 22); 
         titulo2.setFont(fuente9);
         titulo2.setForeground(new Color(0, 23, 141));
 
@@ -79,7 +99,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         labelDescripcion.setForeground(new Color(23, 32, 42));
 
         fraseLabel = new JLabel("El ayudar es un don que todos tenemos");
-        fraseLabel.setBounds(165, 480, 450, 70);
+        fraseLabel.setBounds(165, 400, 460, 70);
         Font fuente2 = new Font("Century Schoolbook", Font.ITALIC, 16); //
         fraseLabel.setFont(fuente2);
         fraseLabel.setForeground(new Color(23, 32, 42));
@@ -135,7 +155,6 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         botonSalir.setBorderPainted(false);
         botonSalir.setOpaque(false);
 
-
         botonUsuario = new JButton("");
         botonUsuario.setBounds(10, 10, 40, 40);
         botonUsuario.setForeground(Color.BLACK);
@@ -150,6 +169,10 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         // Agregar constantes al panel
         panelPrimeraVista.add(tituloLabel);
         panelPrimeraVista.add(fraseLabel);
+        panelPrimeraVista.add(whatsapp);
+        panelPrimeraVista.add(logoWhatsapp);
+        panelPrimeraVista.add(logoTelefono);
+        panelPrimeraVista.add(numero);
         panelPrimeraVista.add(botonAdministrativo);
         panelPrimeraVista.add(botonPaciente);
         // panelPrimeraVista.add(labelDescripcion);
