@@ -13,19 +13,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Image;
 
-
 public class MenuPrimeraVista extends JFrame implements ActionListener {
 
     // Declarando costantes
 
     public JPanel panelPrimeraVista = new JPanel();
-    public JButton botonAdministrativo, botonPaciente, botonSalir, botonExpendiente;
+    public JButton botonAdministrativo, botonPaciente, botonSalir, botonExpendiente, botonCredito, botonUsuario;
     public JLabel fraseLabel, tituloLabel, labelDescripcion;
     Font fuenteFrase = new Font("", Font.PLAIN, 16);
     Font fuenteBoton = new Font("Century Schoolbook", Font.PLAIN, 16);
     private ImageIcon imagen;
     private ImageIcon icono;
     private JLabel logo;
+    ImageIcon iconoRegistro;
 
     public MenuPrimeraVista() {
         // Definiendo caracteristicas al JPanel
@@ -37,7 +37,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         panelPrimeraVista.setBackground(new Color(255, 255, 255));
         setLocationRelativeTo(null);
         panelPrimeraVista.setLayout(null);
-        panelPrimeraVista.setBorder(BorderFactory.createLineBorder(new Color(53, 89, 252 ), 4));
+        panelPrimeraVista.setBorder(BorderFactory.createLineBorder(new Color(53, 89, 252), 4));
 
         Elementos();
     }
@@ -47,27 +47,21 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
 
         // JLabel
 
-         logo = new JLabel();
-        logo.setBounds(205, 10, 170, 130);
-       this.Pintar(this.logo, "Vista\\Imagenes\\logoRegistro.png");
-
-
+        logo = new JLabel();
+        logo.setBounds(210, 10, 180, 180);
+        this.Pintar(this.logo, "Vista\\Imagenes\\logoRegistro.png");
 
         tituloLabel = new JLabel("Sistema de Registro de Centro de Apoyo ");
-        tituloLabel.setBounds(110, 100, 500, 70);
-        Font fuente1 = new Font("Century Schoolbook", Font.PLAIN, 20); //
+        tituloLabel.setBounds(115, 155, 500, 70);
+        Font fuente1 = new Font("Times new Roman", Font.PLAIN, 22); //
         tituloLabel.setFont(fuente1);
-        tituloLabel.setForeground(new Color(23, 32, 42));
+        tituloLabel.setForeground(new Color(0, 23, 141));
 
         JLabel titulo2 = new JLabel(" Solís Salazar");
-        titulo2.setBounds(235, 140, 500, 70);
-        Font fuente9 = new Font("Century Schoolbook", Font.PLAIN, 20); //
+        titulo2.setBounds(240, 200, 500, 70);
+        Font fuente9 = new Font("Times new Roman", Font.PLAIN, 22); //
         titulo2.setFont(fuente9);
-        titulo2.setForeground(new Color(23, 32, 42));
-
-
-
-
+        titulo2.setForeground(new Color(0, 23, 141));
 
         labelDescripcion = new JLabel("Centro de apoyo para niños con transtornos mentales en Costa Rica");
         labelDescripcion.setBounds(70, 70, 590, 70);
@@ -76,32 +70,40 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         labelDescripcion.setForeground(new Color(23, 32, 42));
 
         fraseLabel = new JLabel("El ayudar es don que todos tenemos");
-        fraseLabel.setBounds(155, 400, 450, 70);
+        fraseLabel.setBounds(155, 480, 450, 70);
         Font fuente2 = new Font("Century Schoolbook", Font.ITALIC, 16); //
         fraseLabel.setFont(fuente2);
         fraseLabel.setForeground(new Color(23, 32, 42));
 
         // JButton
-        
-     
 
-        botonPaciente = new JButton("Insertar Registro");
-        botonPaciente.setBounds(190, 210, 200, 30);
-        botonPaciente.setForeground(Color.BLACK);
+        botonPaciente = new JButton(" Insertar Registro");
+        botonPaciente.setBounds(200, 280, 200, 30);
+        botonPaciente.setForeground(Color.WHITE);
         botonPaciente.addActionListener(this);
         botonPaciente.setBackground(new Color(53, 89, 252));
         botonPaciente.setFont(fuenteBoton);
-        // botonPaciente.setBorderPainted(false);
+        ImageIcon iconoRegistro = new ImageIcon("Vista/Imagenes/registro.png");
+        Image imagenRegistro = iconoRegistro.getImage();
+        Image imagenEmpleadoAjustada = imagenRegistro.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEmpleadoAjustada = new ImageIcon(imagenEmpleadoAjustada);
+        botonPaciente.setIcon(iconoEmpleadoAjustada);
 
         botonAdministrativo = new JButton("Administrativo");
-        botonAdministrativo.setBounds(190, 260, 200, 30);
-        botonAdministrativo.setForeground(Color.BLACK);
+        botonAdministrativo.setBounds(200, 330, 200, 30);
+        botonAdministrativo.setForeground(Color.WHITE);
         botonAdministrativo.addActionListener(this);
         botonAdministrativo.setBackground(new Color(53, 89, 252));
         botonAdministrativo.setToolTipText("Apartado para acciones adminstrativas");
         botonAdministrativo.setFont(fuenteBoton);
 
-
+        botonCredito = new JButton("Acerca de nosotros");
+        botonCredito.setBounds(200, 380, 200, 30);
+        botonCredito.setForeground(Color.WHITE);
+        botonCredito.addActionListener(this);
+        botonCredito.setBackground(new Color(53, 89, 252));
+        botonCredito.setToolTipText("Apartado para acciones adminstrativas");
+        botonCredito.setFont(fuenteBoton);
 
         botonSalir = new JButton("");
         botonSalir.setBounds(510, 500, 40, 40);
@@ -114,18 +116,29 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         botonSalir.setBorderPainted(false);
         botonSalir.setOpaque(false);
 
-       
+
+        botonUsuario = new JButton("");
+        botonUsuario.setBounds(10, 10, 30, 30);
+        botonUsuario.setForeground(Color.BLACK);
+        botonUsuario.addActionListener(this);
+        botonUsuario.setBackground(new Color(53, 89, 252));
+        botonUsuario.setToolTipText("Si presiona este boton sale del programa");
+        botonUsuario.setFont(fuenteBoton);
+        this.PintarB(this.botonUsuario, "Vista\\Imagenes\\Usuario.png");
+        botonUsuario.setBorderPainted(false);
+        botonUsuario.setOpaque(false);
+
         // Agregar constantes al panel
         panelPrimeraVista.add(tituloLabel);
         panelPrimeraVista.add(fraseLabel);
         panelPrimeraVista.add(botonAdministrativo);
         panelPrimeraVista.add(botonPaciente);
-       // panelPrimeraVista.add(labelDescripcion);
+        // panelPrimeraVista.add(labelDescripcion);
         panelPrimeraVista.add(botonSalir);
-         panelPrimeraVista.add(logo);
+        panelPrimeraVista.add(logo);
         panelPrimeraVista.add(titulo2);
-
-
+        panelPrimeraVista.add(botonCredito);
+        panelPrimeraVista.add(botonUsuario);
 
     }
 
