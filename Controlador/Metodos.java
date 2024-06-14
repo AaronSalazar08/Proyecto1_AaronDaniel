@@ -56,4 +56,54 @@ public class Metodos {
 
     }
 
+    public void Principal_Registro (){
+
+        ventanaPrincipal.setVisible(false);
+        ventanaRegistroPaciente.setVisible(true);
+    }
+
+    public void Registro_Principal (){
+
+        ventanaRegistroPaciente.setVisible(false);
+        ventanaPrincipal.setVisible(true);
+    }
+
+    public void Principal_Administrador() {
+
+        ventanaPrincipal.setVisible(false);
+        ventanaAdministrador.setVisible(true);
+    }
+
+    public void Administrador_Principal() {
+
+        ventanaAdministrador.setVisible(false);
+        ventanaPrincipal.setVisible(true);
+    }
+
+    public void Principal_AcercaNosotros() {
+
+        ventanaPrincipal.setVisible(false);
+        ventanaAcercaNosotros.setVisible(true);
+    }
+
+    public void AcercaNosotros_Principal() {
+
+        ventanaAcercaNosotros.setVisible(false);
+        ventanaPrincipal.setVisible(true);
+    }
+
+    public void SalirAplicacion() {
+
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Estás seguro de que quieres salir del programa? ",
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            ventanaPrincipal.dispose();
+        }
+
+    }
+
 }

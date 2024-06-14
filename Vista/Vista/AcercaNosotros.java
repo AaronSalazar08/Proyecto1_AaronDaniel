@@ -68,18 +68,41 @@ public class AcercaNosotros extends JFrame implements ActionListener {
         tituloLabel.setBounds(400, 20, 400, 60);
         tituloLabel.setFont(fuenteTitulo);
 
-
+         // Boton para volver al menu principal
+         botonVolver = new JButton("Volver");
+         botonVolver.setBounds(40, 500, 150, 30);
+         botonVolver.setForeground(new Color(255, 255, 255));
+         botonVolver.setBackground(new Color(53, 89, 252));
+         botonVolver.addActionListener(this);
+         // botonVolver.setOpaque(false);
+         // botonVolver.setContentAreaFilled(false);
+        botonVolver.setBorderPainted(false);
+ 
+         
+          ImageIcon iconoVolver = new ImageIcon("Vista/Imagenes/volver (1).png");
+          botonVolver.setToolTipText("Atrás");
+          if (iconoVolver != null && iconoVolver.getImage() != null) {
+          Image imagenVolverAjustada = iconoVolver.getImage().getScaledInstance(55, 40,
+          Image.SCALE_SMOOTH);
+          botonVolver.setIcon(new ImageIcon(imagenVolverAjustada));
+          }
 
         panelAcercaNosotros.add(fotoAaron);
         panelAcercaNosotros.add(fotoDaniel);
         panelAcercaNosotros.add(informacionAaron);
         panelAcercaNosotros.add(informacionDaniel);
         panelAcercaNosotros.add(tituloLabel);
+        panelAcercaNosotros.add(botonVolver);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == botonVolver){
+
+            metodos.AcercaNosotros_Principal();
+        }
 
     }
 

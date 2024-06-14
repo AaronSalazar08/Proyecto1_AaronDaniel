@@ -27,7 +27,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
     public static Metodos metodos;
 
     public JPanel panelPrimeraVista = new JPanel();
-    public JButton botonAdministrativo, botonPaciente, botonSalir, botonExpendiente, botonCredito, botonUsuario;
+    public JButton botonAdministrativo, botonPaciente, botonSalir, botonCredito, botonUsuario;
     public JLabel fraseLabel, tituloLabel, labelDescripcion, logoWhatsapp, logoTelefono, numero, whatsapp;
     Font fuenteFrase = new Font("", Font.PLAIN, 16);
     Font fuenteBoton = new Font("Century Schoolbook", Font.PLAIN, 16);
@@ -70,25 +70,25 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
 
         tituloLabel = new JLabel("Sistema de Registro de Centro de Apoyo ");
         tituloLabel.setBounds(115, 155, 500, 70);
-        Font fuente1 = new Font("Times new Roman", Font.PLAIN, 22); 
+        Font fuente1 = new Font("Times new Roman", Font.PLAIN, 22);
         tituloLabel.setFont(fuente1);
         tituloLabel.setForeground(new Color(0, 23, 141));
 
         whatsapp = new JLabel("+506 6098-8878");
         whatsapp.setBounds(55, 487, 120, 70);
-        Font fuente5 = new Font("Times new Roman", Font.PLAIN, 12); 
+        Font fuente5 = new Font("Times new Roman", Font.PLAIN, 12);
         whatsapp.setFont(fuente5);
         whatsapp.setForeground(new Color(0, 0, 0));
 
         numero = new JLabel("+506 2665-0993");
         numero.setBounds(190, 487, 120, 70);
-        Font fuente3 = new Font("Times new Roman", Font.PLAIN, 12); 
+        Font fuente3 = new Font("Times new Roman", Font.PLAIN, 12);
         numero.setFont(fuente3);
         numero.setForeground(new Color(0, 0, 0));
 
         JLabel titulo2 = new JLabel(" Solís Salazar");
         titulo2.setBounds(240, 200, 500, 70);
-        Font fuente9 = new Font("Times new Roman", Font.PLAIN, 22); 
+        Font fuente9 = new Font("Times new Roman", Font.PLAIN, 22);
         titulo2.setFont(fuente9);
         titulo2.setForeground(new Color(0, 23, 141));
 
@@ -185,44 +185,24 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        String opcion;
 
         // Ciclo if en caso de que se seleccione la opcion "Administrativo"
         if (e.getSource() == botonAdministrativo) {
 
-            LoginAdmin loginAdmin = new LoginAdmin();
-            loginAdmin.setVisible(true);
-            this.dispose();
-
-            // Ciclo if en caso de que se seleccione la opcion "Paciente"
+            metodos.Principal_Administrador();
 
         } else if (e.getSource() == botonPaciente) {
 
-            VentanaInformacionPaciente instanciaPaciente = new VentanaInformacionPaciente();
-            instanciaPaciente.setVisible(true);
-            this.dispose();
+            metodos.Principal_Registro();
 
             // Ciclo if en caso de que el usuario quisiera salir del programa
         } else if (e.getSource() == botonSalir) {
 
-            int confirmacion = JOptionPane.showConfirmDialog(null,
-                    "¿Estás seguro de que quieres salir del programa? ",
-                    "Confirmar",
-                    JOptionPane.YES_NO_OPTION);
+            metodos.SalirAplicacion();
 
-            if (confirmacion == JOptionPane.YES_OPTION) {
+        }else if (e.getSource() == botonCredito){
 
-                this.dispose();
-            }
-
-        }
-
-        // Creacion de istancia para poder entrar a la busqueda de un expendiente medico
-        if (e.getSource() == botonExpendiente) {
-
-            ResultadosPaciente resultadosPaciente = new ResultadosPaciente();
-            resultadosPaciente.setVisible(true);
-            this.dispose();
+            metodos.Principal_AcercaNosotros();
         }
 
     }

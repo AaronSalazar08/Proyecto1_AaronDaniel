@@ -205,10 +205,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
         if (e.getSource() == botonVolver) {
 
-            // Creacion de una instancia para regresar a la clase
-            MenuPrimeraVista menuPrimeraVista = new MenuPrimeraVista();
-            menuPrimeraVista.setVisible(true);
-            this.dispose();
+           metodos.Administrador_Principal();
 
         }
 
