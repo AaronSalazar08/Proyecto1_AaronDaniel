@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import Controlador.Metodos;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.event.ActionEvent;
@@ -19,11 +22,17 @@ import java.awt.Image;
 
 public class LoginAdmin extends JFrame implements ActionListener {
 
-    JPanel panelRegistro = new JPanel();
-    JLabel tituloLabel, cedulaLabel, nombreCompletoLabel, apellidoCompletoLabel, usuarioLabel, claveLabel;
-    JButton botonRegistrar, botonVolver;
-    JTextField usuario_txt, cedula_txt, nombre_txt, apellido_txt;
-    JPasswordField clave_psw;
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
+    public JPanel panelRegistro = new JPanel();
+    public JLabel tituloLabel, cedulaLabel, nombreCompletoLabel, apellidoCompletoLabel, usuarioLabel, claveLabel;
+    public JButton botonRegistrar, botonVolver;
+    public JTextField usuario_txt, cedula_txt, nombre_txt, apellido_txt;
+    public JPasswordField clave_psw;
     Font fuente = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 14);
     Font fuenteBoton = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 16);
     Font fuenteTitulo = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 20);
@@ -112,6 +121,7 @@ public class LoginAdmin extends JFrame implements ActionListener {
         botonRegistrar.addActionListener(this);
         botonRegistrar.setBackground(new Color(53, 89, 252));
         botonRegistrar.setFont(fuenteBoton);
+        
 
         botonVolver = new JButton();
         botonVolver.setBounds(10, 220, 65, 30);
@@ -149,54 +159,17 @@ public class LoginAdmin extends JFrame implements ActionListener {
     // Metodo para la accion de los botones
 
     public void actionPerformed(ActionEvent e) {
-        // Obtener los valores de los JTexfield por medio de variables locales
+       
+        if(e.getSource() == botonRegistrar){
+            if(metodos != null ){
+                metodos.Login_Principal();
 
-        String entrada_texto1 = usuario_txt.getText();
-        char[] contrasena = clave_psw.getPassword();
-        String contrasenaString = new String(contrasena);
+            }else {
 
-        // Asignando credenciales para los cuentas administrarivas del programa
-        Map<String, String> credencialesValidas = new HashMap<>();
-        credencialesValidas.put("Aaron", "123");
-        credencialesValidas.put("Daniel", "456");
-        credencialesValidas.put("Douglas", "789");
-
-        // Creando instancia para volver al menu principal
-
-        if (e.getSource() == botonVolver) {
-
-            MenuPrimeraVista menuPrimeraVista = new MenuPrimeraVista();
-            menuPrimeraVista.setVisible(true);
-            this.dispose();
-
-        }
-        // metodo para para comprobar las credenciales del usuario administrativo
-
-        // Ciclo if en caso de que se dejen los espacios vacíos
-        if (e.getSource() == botonRegistrar) {
-
-            if (entrada_texto1.isEmpty() || contrasenaString.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Verifique que los campos a llenar no estén vacíos");
-                return;
-            }
-
-            // ciclo if en caso de que las credenciales sean correctas
-            if (credencialesValidas.containsKey(entrada_texto1)
-                    && credencialesValidas.get(entrada_texto1).equals(contrasenaString)) {
-                JOptionPane.showMessageDialog(this, "Bienvenido " + entrada_texto1);
-
-                VentanaOpcionesAdministrativo ventanaOpcionesAdministrativo = new VentanaOpcionesAdministrativo();
-                ventanaOpcionesAdministrativo.setVisible(true);
-                this.dispose();
-
-                // Else en caso de que las credenciales sean incorrectas
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+                JOptionPane.showMessageDialog(null, "Metodos is null");
             }
 
         }
-
     }
 
 }

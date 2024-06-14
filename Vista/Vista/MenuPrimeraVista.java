@@ -2,6 +2,9 @@ package Vista;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Controlador.Metodos;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +19,12 @@ import java.awt.Image;
 public class MenuPrimeraVista extends JFrame implements ActionListener {
 
     // Declarando costantes
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
 
     public JPanel panelPrimeraVista = new JPanel();
     public JButton botonAdministrativo, botonPaciente, botonSalir, botonExpendiente, botonCredito, botonUsuario;

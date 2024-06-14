@@ -4,12 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.*;
+
+import Controlador.Metodos;
+
 import java.awt.Font;
 import java.awt.Image;
 
 
 
 public class AcercaNosotros extends JFrame implements ActionListener {
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
 
     public JPanel panelAcercaNosotros = new JPanel();
     JLabel fotoAaron, fotoDaniel, informacionAaron, informacionDaniel, tituloLabel;

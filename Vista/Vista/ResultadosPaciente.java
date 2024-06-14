@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Controlador.Metodos;
 import Controlador.Principal;
 import Modelo.Paciente;
 
@@ -23,6 +24,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ResultadosPaciente extends JFrame implements ActionListener {
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
 
     public JPanel panelResultado = new JPanel();
 

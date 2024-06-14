@@ -15,6 +15,12 @@ import Modelo.Paciente;
 
 public class VentanaOpcionesAdministrativo extends JFrame implements ActionListener {
 
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
     // Declarando costantes
     private JPanel panelVentanaOpcionesAdministrativo = new JPanel();
     private JButton botonEliminar, botonVolver, botonEditar, botonBuscar, botonRefrescar;
