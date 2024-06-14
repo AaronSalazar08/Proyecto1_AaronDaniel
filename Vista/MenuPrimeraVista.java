@@ -69,8 +69,8 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         labelDescripcion.setFont(fuente4);
         labelDescripcion.setForeground(new Color(23, 32, 42));
 
-        fraseLabel = new JLabel("El ayudar es don que todos tenemos");
-        fraseLabel.setBounds(155, 480, 450, 70);
+        fraseLabel = new JLabel("El ayudar es un don que todos tenemos");
+        fraseLabel.setBounds(165, 480, 450, 70);
         Font fuente2 = new Font("Century Schoolbook", Font.ITALIC, 16); //
         fraseLabel.setFont(fuente2);
         fraseLabel.setForeground(new Color(23, 32, 42));
@@ -83,27 +83,37 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         botonPaciente.addActionListener(this);
         botonPaciente.setBackground(new Color(53, 89, 252));
         botonPaciente.setFont(fuenteBoton);
-        ImageIcon iconoRegistro = new ImageIcon("Vista/Imagenes/registro.png");
+        ImageIcon iconoRegistro = new ImageIcon("Vista/Imagenes/registrosB.png");
         Image imagenRegistro = iconoRegistro.getImage();
         Image imagenEmpleadoAjustada = imagenRegistro.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
         ImageIcon iconoEmpleadoAjustada = new ImageIcon(imagenEmpleadoAjustada);
         botonPaciente.setIcon(iconoEmpleadoAjustada);
 
-        botonAdministrativo = new JButton("Administrativo");
+        botonAdministrativo = new JButton("    Administrativo");
         botonAdministrativo.setBounds(200, 330, 200, 30);
         botonAdministrativo.setForeground(Color.WHITE);
         botonAdministrativo.addActionListener(this);
         botonAdministrativo.setBackground(new Color(53, 89, 252));
         botonAdministrativo.setToolTipText("Apartado para acciones adminstrativas");
         botonAdministrativo.setFont(fuenteBoton);
+        ImageIcon iconoAdministrativo = new ImageIcon("Vista/Imagenes/ajustesB.png");
+        Image imagenAdministrativo = iconoAdministrativo.getImage();
+        Image imagenAdminAjustada = imagenAdministrativo.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoAdminAjustado = new ImageIcon(imagenAdminAjustada);
+        botonAdministrativo.setIcon(iconoAdminAjustado);
 
-        botonCredito = new JButton("Acerca de nosotros");
+        botonCredito = new JButton("  Sobre nosotros");
         botonCredito.setBounds(200, 380, 200, 30);
         botonCredito.setForeground(Color.WHITE);
         botonCredito.addActionListener(this);
         botonCredito.setBackground(new Color(53, 89, 252));
         botonCredito.setToolTipText("Apartado para acciones adminstrativas");
         botonCredito.setFont(fuenteBoton);
+        ImageIcon iconoEquipo = new ImageIcon("Vista/Imagenes/equipoB.png");
+        Image imagenEquipo = iconoEquipo.getImage();
+        Image imagenEquipoAjustada = imagenEquipo.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEquipoAjustado = new ImageIcon(imagenEquipoAjustada);
+        botonCredito.setIcon(iconoEquipoAjustado);
 
         botonSalir = new JButton("");
         botonSalir.setBounds(510, 500, 40, 40);
@@ -118,7 +128,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
 
 
         botonUsuario = new JButton("");
-        botonUsuario.setBounds(10, 10, 30, 30);
+        botonUsuario.setBounds(10, 10, 40, 40);
         botonUsuario.setForeground(Color.BLACK);
         botonUsuario.addActionListener(this);
         botonUsuario.setBackground(new Color(53, 89, 252));
