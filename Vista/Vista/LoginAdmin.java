@@ -48,8 +48,7 @@ public class LoginAdmin extends JFrame implements ActionListener {
         this.setSize(350, 400);
         this.setContentPane(panelRegistro);
         panelRegistro.setBackground(new Color(255, 255, 255));
-        // panelRegistro.setBorder(BorderFactory.createLineBorder(new Color(53, 89,
-        // 252), 4));
+        panelRegistro.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171), 4));
         setLocationRelativeTo(null);
         panelRegistro.setLayout(null);
         Elementos();

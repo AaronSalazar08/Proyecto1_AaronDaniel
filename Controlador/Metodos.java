@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.awt.event.WindowAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import Vista.LoginAdmin;
 import Vista.MenuPrimeraVista;
 import Vista.VentanaInformacionPaciente;
 import Vista.VentanaOpcionesAdministrativo;
+import javafx.stage.WindowEvent;
 
 public class Metodos {
 
@@ -56,13 +58,13 @@ public class Metodos {
 
     }
 
-    public void Principal_Registro (){
+    public void Principal_Registro() {
 
         ventanaPrincipal.setVisible(false);
         ventanaRegistroPaciente.setVisible(true);
     }
 
-    public void Registro_Principal (){
+    public void Registro_Principal() {
 
         ventanaRegistroPaciente.setVisible(false);
         ventanaPrincipal.setVisible(true);
@@ -101,9 +103,11 @@ public class Metodos {
 
         if (confirmacion == JOptionPane.YES_OPTION) {
 
-            ventanaPrincipal.dispose();
+           System.exit(0);
         }
 
     }
+
+   
 
 }

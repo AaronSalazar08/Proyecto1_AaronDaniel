@@ -28,7 +28,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
 
     public JPanel panelPrimeraVista = new JPanel();
     public JButton botonAdministrativo, botonPaciente, botonSalir, botonCredito, botonUsuario;
-    public JLabel fraseLabel, tituloLabel, labelDescripcion, logoWhatsapp, logoTelefono, numero, whatsapp;
+    public JLabel fraseLabel, tituloLabel, labelDescripcion, logoWhatsapp, logoTelefono, numero, whatsapp, nombreAdministrador;
     Font fuenteFrase = new Font("", Font.PLAIN, 16);
     Font fuenteBoton = new Font("Century Schoolbook", Font.PLAIN, 16);
     private ImageIcon imagen;
@@ -46,7 +46,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         panelPrimeraVista.setBackground(new Color(255, 255, 255));
         setLocationRelativeTo(null);
         panelPrimeraVista.setLayout(null);
-        panelPrimeraVista.setBorder(BorderFactory.createLineBorder(new Color(53, 89, 252), 4));
+        panelPrimeraVista.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171), 4));
 
         Elementos();
     }
@@ -74,6 +74,12 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         tituloLabel.setFont(fuente1);
         tituloLabel.setForeground(new Color(0, 23, 141));
 
+        nombreAdministrador = new JLabel("Usuario");
+        nombreAdministrador.setBounds(50, 20, 120, 30);
+        Font fuente6 = new Font("Times new Roman", Font.PLAIN, 16);
+        nombreAdministrador.setFont(fuente6);
+        nombreAdministrador.setForeground(new Color(0,0,0));
+
         whatsapp = new JLabel("+506 6098-8878");
         whatsapp.setBounds(55, 487, 120, 70);
         Font fuente5 = new Font("Times new Roman", Font.PLAIN, 12);
@@ -99,7 +105,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         labelDescripcion.setForeground(new Color(23, 32, 42));
 
         fraseLabel = new JLabel("El ayudar es un don que todos tenemos");
-        fraseLabel.setBounds(165, 400, 460, 70);
+        fraseLabel.setBounds(165, 420, 460, 70);
         Font fuente2 = new Font("Century Schoolbook", Font.ITALIC, 16); //
         fraseLabel.setFont(fuente2);
         fraseLabel.setForeground(new Color(23, 32, 42));
@@ -181,6 +187,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         panelPrimeraVista.add(titulo2);
         panelPrimeraVista.add(botonCredito);
         panelPrimeraVista.add(botonUsuario);
+        panelPrimeraVista.add(nombreAdministrador);
 
     }
 
