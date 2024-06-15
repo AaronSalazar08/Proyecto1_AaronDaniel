@@ -17,6 +17,11 @@ import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.Font;
 import java.awt.Image;
 
@@ -201,94 +206,99 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) {
 
         //Creacion de instancia para volver al menú principal 
-        if (e.getSource() == botonCancelar) {
-            
-           metodos.Registro_Principal();
+          String entradaNombrePaciente = nombrePacienteTxt.getText().trim();
+          String entradaApellido = apellidoPacienteTxt.getText().trim();
+        String entradaCedulaPaciente = cedulaPacienteTxt.getText().trim();
+        String entradaEdadPaciente = EdadPacienteTxt.getText().trim();
+        String transtornoSeleccionado = String.valueOf(comboTranstorno.getSelectedItem());
+        boolean masculinoSeleccionado = botonMasculino.isSelected();
+        boolean femeninoSeleccionado = botonFemenino.isSelected();
+        Connection con = null;
+       
+        ResultSet rs = null;
+        int exito = 0;
+
+        // Validate input fields
+        if (entradaNombrePaciente.isEmpty() ||entradaApellido.isEmpty()|| entradaEdadPaciente.isEmpty() || entradaCedulaPaciente.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Verifique que los campos a rellenar no estén vacíos");
+            return;
         }
-        //Metodo para obtener los datos de los pacientes en los JTField, JComboBox y JRadioButton por medio de variables locales
-        
 
-        if (e.getSource() == botonRegistrar) {
+        // Convert age to integer
+        int edadPaciente;
+        try {
+            edadPaciente = Integer.parseInt(entradaEdadPaciente);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la edad");
+            EdadPacienteTxt.setText("");
+            return;
+        }
 
-            String entradaNombrePaciente = nombrePacienteTxt.getText().trim();
-            String entradaCedulaPaciente = cedulaPacienteTxt.getText().trim();
-            String entradaEdadPaciente = EdadPacienteTxt.getText().trim();
-            String transtornoSeleccionado = (String) comboTranstorno.getSelectedItem();
-            boolean masculinoSeleccionado = botonMasculino.isSelected();
-            boolean femeninoSeleccionado = botonFemenino.isSelected();
+        // Validate gender selection
+        if (!masculinoSeleccionado && !femeninoSeleccionado) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione el sexo del paciente.");
+            return;
+        }
 
-            if (entradaNombrePaciente.isEmpty() || entradaEdadPaciente.isEmpty() || entradaCedulaPaciente.isEmpty()) {
+        // Determine patient's sex
+        String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
 
-                JOptionPane.showMessageDialog(null, "Verifique que los campos a rellenar no estén vacíos");
+        // Prepare SQL statement for inserting record
+        String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('" + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
 
-            } else if (!entradaNombrePaciente.isEmpty() && !entradaEdadPaciente.isEmpty()
-                    && !entradaCedulaPaciente.isEmpty()) {
+        // Establish connection with database
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true", "root", "091623");
+             Statement stmt = conn.createStatement()) {
 
-                int edadPaciente;
-                try {
+            // Execute SQL statement
+             exito = stmt.executeUpdate(SQL);
 
-                    edadPaciente = Integer.parseInt(entradaEdadPaciente);
-                    if(edadPaciente > 0){
+            // Process the result of the query
+            if (exito != 0) {
+                JOptionPane.showMessageDialog(null, "Registrado exitosamente");
 
-                        if (botonMasculino.isSelected()) {
+                // Clear input fields
+                nombrePacienteTxt.setText("");
+                apellidoPacienteTxt.setText("");
+                cedulaPacienteTxt.setText("");
+                EdadPacienteTxt.setText("");
+                comboTranstorno.setSelectedIndex(0);
+                botonMasculino.setSelected(false);
+                botonFemenino.setSelected(false);
 
-                            String sexoMasculino = botonMasculino.isSelected() ? "Masculino" : "Masculino";
+                // (Optional) Display newly created record
+                // displayRow("paciente", stmt.executeQuery("SELECT * FROM paciente"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al registrar el paciente");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
+        }
+    }
+
+    private static void displayRow(String title, ResultSet rs) {
+        try {
+            System.out.println(title);
+            while (rs.next()) {
+                System.out.println(rs.getString("nombre") + " : "+ rs.getString("apellido") + " : "+  rs.getString("cedula") + " : " + rs.getString("edad") + " : " + rs.getString("transtorno") + " : " + rs.getString("sexo"));
+                System.out.println();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     
-                            //Llamado del Arraylist para guardar los datos del paciente 
-    
-                            
-    
-                            JOptionPane.showMessageDialog(null, "Registrado exitosamente");
-    
-                            MenuPrimeraVista menuPrimeraVista = new MenuPrimeraVista();
-                            menuPrimeraVista.setVisible(true);
-                            this.dispose();
-    
-                        }
-    
-                        //Ciclo if para que las entradas de texto no estan vacios
-    
-                        if (!botonMasculino.isSelected() && !botonFemenino.isSelected()) {
-    
-                            JOptionPane.showMessageDialog(null, "Por favor, seleccione el sexo del paciente.");
-                            return;
-                        }
-    
-                        else if (botonFemenino.isSelected()) {
-    
-                            String sexoFemenino = botonFemenino.isSelected() ? "Masculino" : "Masculino";
-    
-                          
-    
-                            JOptionPane.showMessageDialog(null, "Registrado exitosamente");
-    
-                            MenuPrimeraVista menuPrimeraVista = new MenuPrimeraVista();
-                            menuPrimeraVista.setVisible(true);
-                            this.dispose();
-    
-                        }
-                        
-                    } else {
 
-                        JOptionPane.showMessageDialog(null, "Ingrese una edad mayor que 0");
-                    }
-
-                    
-
-                } catch (NumberFormatException ex) {
-
-                    JOptionPane.showMessageDialog(null, "Debe ingresar un valor valido para la edad");
-
-                    EdadPacienteTxt.setText(" ");
-                }
-            } // fin del else if si todas las entradas de texto no estan vacios
-
-        } // Fin boton registrar
+            // Fin boton registrar
 
        
         
 
-    }// Fin action listener
+   
     private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
@@ -302,7 +312,8 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
 
 
+}
 
 
 
-}// Fin Clase principal
+// Fin Clase principal
