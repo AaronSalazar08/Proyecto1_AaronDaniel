@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import Controlador.Metodos;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.event.ActionEvent;
@@ -19,11 +22,19 @@ import java.awt.Image;
 
 public class LoginAdmin extends JFrame implements ActionListener {
 
-    JPanel panelRegistro = new JPanel();
-    JLabel tituloLabel, cedulaLabel, nombreCompletoLabel, apellidoCompletoLabel, usuarioLabel, claveLabel;
-    JButton botonRegistrar, botonVolver;
-    JTextField usuario_txt, cedula_txt, nombre_txt, apellido_txt;
-    JPasswordField clave_psw;
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
+    public JPanel panelRegistro = new JPanel();
+    public JLabel tituloLabel, usuarioLabel, claveLabel, logoPerfil, logoUsuario, logoClave;
+    public JButton botonRegistrar, botonVolver;
+    public JTextField usuario_txt;
+    public JPasswordField clave_psw;
+    private ImageIcon imagen;
+    private ImageIcon icono;
     Font fuente = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 14);
     Font fuenteBoton = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 16);
     Font fuenteTitulo = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 20);
@@ -31,13 +42,13 @@ public class LoginAdmin extends JFrame implements ActionListener {
     public LoginAdmin() {
 
         // Definiendo caracteristicas al JPanel
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Inicio Sesión");
         this.setLocationRelativeTo(null);
-        this.setSize(350, 550);
+        this.setSize(350, 400);
         this.setContentPane(panelRegistro);
         panelRegistro.setBackground(new Color(255, 255, 255));
-        // panelRegistro.setBorder(BorderFactory.createLineBorder(new Color(53, 89, 252), 4));
+        panelRegistro.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171), 4));
         setLocationRelativeTo(null);
         panelRegistro.setLayout(null);
         Elementos();
@@ -48,67 +59,49 @@ public class LoginAdmin extends JFrame implements ActionListener {
 
         // JLabel
 
+        logoPerfil = new JLabel();
+        logoPerfil.setBounds(100, 40, 140, 140);
+        this.Pintar(this.logoPerfil, "Vista\\Imagenes\\perfilLogin.png");
+
         tituloLabel = new JLabel("Inicio Sesión ");
-        tituloLabel.setBounds(100, 0, 200, 60);
+        tituloLabel.setBounds(110, 0, 200, 60);
         tituloLabel.setFont(fuenteTitulo);
 
-        cedulaLabel = new JLabel("Cédula: ");
-        cedulaLabel.setBounds(40, 50, 200, 60);
-        cedulaLabel.setFont(fuente);
-
-        nombreCompletoLabel = new JLabel("Nombre Completo: ");
-        nombreCompletoLabel.setBounds(40, 120, 200, 60);
-        nombreCompletoLabel.setFont(fuente);
-
-        apellidoCompletoLabel = new JLabel("Apellido Completo: ");
-        apellidoCompletoLabel.setBounds(40, 190, 200, 60);
-        apellidoCompletoLabel.setFont(fuente);
-
         usuarioLabel = new JLabel("Usuario: ");
-        usuarioLabel.setBounds(40, 260, 200, 60);
+        usuarioLabel.setBounds(40, 140, 200, 60);
         usuarioLabel.setFont(fuente);
 
         claveLabel = new JLabel("Contraseña: ");
-        claveLabel.setBounds(40, 330, 200, 60);
+        claveLabel.setBounds(40, 210, 200, 60);
         claveLabel.setFont(fuente);
 
         // JTexField
 
-        cedula_txt = new JTextField();
-        cedula_txt.setBounds(40, 100, 250, 30);
-        cedula_txt.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171)));
-        cedula_txt.setFont(fuente);
-        cedula_txt.setToolTipText("Ingrese su número de identificación");
-
-        nombre_txt = new JTextField();
-        nombre_txt.setBounds(40, 170, 250, 30);
-        nombre_txt.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171)));
-        nombre_txt.setFont(fuente);
-        nombre_txt.setToolTipText("Ingrese su nombre completo");
-
-        apellido_txt = new JTextField();
-        apellido_txt.setBounds(40, 240, 250, 30);
-        apellido_txt.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171)));
-        apellido_txt.setFont(fuente);
-        apellido_txt.setToolTipText("Ingrese sus apellidos paternos y maternos");
-
         usuario_txt = new JTextField();
-        usuario_txt.setBounds(40, 310, 250, 30);
+        usuario_txt.setBounds(40, 190, 250, 30);
         usuario_txt.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171)));
         usuario_txt.setFont(fuente);
         usuario_txt.setToolTipText("Ingrese su nombre de usuario");
 
+        logoUsuario = new JLabel();
+        logoUsuario.setBounds(255, 193, 30, 25);
+        this.Pintar(this.logoUsuario, "Vista\\Imagenes\\usuarioLogo.png");
+
         clave_psw = new JPasswordField();
-        clave_psw.setBounds(40, 380, 250, 30);
+        clave_psw.setBounds(40, 260, 250, 30);
         clave_psw.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171)));
         clave_psw.setFont(fuente);
         clave_psw.setToolTipText("Ingrese su contraseña");
+
+        logoClave = new JLabel();
+        logoClave.setBounds(255, 263, 30, 25);
+        this.Pintar(this.logoClave, "Vista\\Imagenes\\claveLogo.png");
 
         // JButton
 
         botonRegistrar = new JButton("Ingresar");
         botonRegistrar.setForeground(new Color(255, 255, 255));
-        botonRegistrar.setBounds(40, 450, 250, 30);
+        botonRegistrar.setBounds(40, 300, 250, 30);
         botonRegistrar.addActionListener(this);
         botonRegistrar.setBackground(new Color(53, 89, 252));
         botonRegistrar.setFont(fuenteBoton);
@@ -129,15 +122,13 @@ public class LoginAdmin extends JFrame implements ActionListener {
         // Añadir constantes al panel
 
         panelRegistro.add(tituloLabel);
-        panelRegistro.add(cedulaLabel);
-        panelRegistro.add(nombreCompletoLabel);
-        panelRegistro.add(apellidoCompletoLabel);
+        panelRegistro.add(logoPerfil);
+        panelRegistro.add(logoUsuario);
+        panelRegistro.add(logoClave);
+
         panelRegistro.add(usuarioLabel);
         panelRegistro.add(claveLabel);
 
-        panelRegistro.add(cedula_txt);
-        panelRegistro.add(nombre_txt);
-        panelRegistro.add(apellido_txt);
         panelRegistro.add(usuario_txt);
         panelRegistro.add(clave_psw);
 
@@ -149,54 +140,31 @@ public class LoginAdmin extends JFrame implements ActionListener {
     // Metodo para la accion de los botones
 
     public void actionPerformed(ActionEvent e) {
-        // Obtener los valores de los JTexfield por medio de variables locales
 
-        String entrada_texto1 = usuario_txt.getText();
-        char[] contrasena = clave_psw.getPassword();
-        String contrasenaString = new String(contrasena);
-
-        // Asignando credenciales para los cuentas administrarivas del programa
-        Map<String, String> credencialesValidas = new HashMap<>();
-        credencialesValidas.put("Aaron", "123");
-        credencialesValidas.put("Daniel", "456");
-        credencialesValidas.put("Douglas", "789");
-
-        // Creando instancia para volver al menu principal
-
-        if (e.getSource() == botonVolver) {
-
-            MenuPrimeraVista menuPrimeraVista = new MenuPrimeraVista();
-            menuPrimeraVista.setVisible(true);
-            this.dispose();
-
-        }
-        // metodo para para comprobar las credenciales del usuario administrativo
-
-        // Ciclo if en caso de que se dejen los espacios vacíos
         if (e.getSource() == botonRegistrar) {
-
-            if (entrada_texto1.isEmpty() || contrasenaString.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Verifique que los campos a llenar no estén vacíos");
-                return;
-            }
-
-            // ciclo if en caso de que las credenciales sean correctas
-            if (credencialesValidas.containsKey(entrada_texto1)
-                    && credencialesValidas.get(entrada_texto1).equals(contrasenaString)) {
-                JOptionPane.showMessageDialog(this, "Bienvenido " + entrada_texto1);
-
-                VentanaOpcionesAdministrativo ventanaOpcionesAdministrativo = new VentanaOpcionesAdministrativo();
-                ventanaOpcionesAdministrativo.setVisible(true);
-                this.dispose();
-
-                // Else en caso de que las credenciales sean incorrectas
+            if (metodos != null) {
+                metodos.Login_Principal();
 
             } else {
-                JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+
+                JOptionPane.showMessageDialog(null, "Metodos is null");
             }
 
         }
+    }
 
+    private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
+        // Labels
+        this.imagen = new ImageIcon(ruta);
+        this.icono = new ImageIcon(
+                this.imagen.getImage().getScaledInstance(
+                        lbl.getWidth(),
+                        lbl.getHeight(),
+                        Image.SCALE_DEFAULT));
+        lbl.setIcon(this.icono);
+        this.repaint();
+
+        // Metodo para poner imagines a JButton
     }
 
 }

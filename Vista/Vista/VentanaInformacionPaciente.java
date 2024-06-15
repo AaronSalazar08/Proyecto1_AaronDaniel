@@ -10,6 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import Controlador.Metodos;
+
 import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -18,6 +21,12 @@ import java.awt.Font;
 import java.awt.Image;
 
 public class VentanaInformacionPaciente extends JFrame implements ActionListener {
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
 
      // Declarando constantes 
     public JPanel panelInfoPaciente = new JPanel();
@@ -194,10 +203,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         //Creacion de instancia para volver al menú principal 
         if (e.getSource() == botonCancelar) {
             
-            MenuPrimeraVista instanciaInicio = new MenuPrimeraVista();
-            instanciaInicio.setVisible(true);
-            this.dispose();
-
+           metodos.Registro_Principal();
         }
         //Metodo para obtener los datos de los pacientes en los JTField, JComboBox y JRadioButton por medio de variables locales
         

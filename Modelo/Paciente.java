@@ -4,13 +4,21 @@ public class Paciente  {
 
   protected String transtorno;
   protected String nombre;
+  protected String apellido;
   protected String cedula;
   protected String sexo;
   protected int edad;
 
-public Paciente(String nombre, String cedula, String sexo, int edad, String transtrorno) {
-  
-    this.transtorno = transtrorno;
+
+
+
+public Paciente(String transtorno, String nombre, String apellido, String cedula, String sexo, int edad) {
+    this.transtorno = transtorno;
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.cedula = cedula;
+    this.sexo = sexo;
+    this.edad = edad;
 }
 
 
