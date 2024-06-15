@@ -1,8 +1,13 @@
 package Controlador;
 
-import java.awt.event.WindowAdapter;
+
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
+
 
 import javax.swing.JOptionPane;
 
@@ -11,7 +16,7 @@ import Vista.LoginAdmin;
 import Vista.MenuPrimeraVista;
 import Vista.VentanaInformacionPaciente;
 import Vista.VentanaOpcionesAdministrativo;
-import javafx.stage.WindowEvent;
+
 
 public class Metodos {
 
@@ -103,11 +108,72 @@ public class Metodos {
 
         if (confirmacion == JOptionPane.YES_OPTION) {
 
-           System.exit(0);
+            System.exit(0);
         }
 
     }
 
-   
+    public void EliminarElementos() {
+
+        String cedula = ventanaAdministrador.cedula_txt.getText().trim();
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true", "root",
+                    "Proverbios18.22");
+            con.setAutoCommit(true);
+
+            String sqlEliminar = "DELETE FROM pacientes where Cedula= cedula;";
+            String sqlMostrar = "SELECT * FROM pacientes;";
+
+            stmt = con.createStatement();
+            int exito = stmt.executeUpdate(sqlEliminar);
+            System.out.println("valor: " + exito);
+            if (exito > 0) {
+                rs = stmt.executeQuery(sqlMostrar);
+                // displayRow("estudiantes", rs);
+            } else
+                System.out.print("No se encontr  el carnet a eliminar");
+
+        } catch (Exception e) {
+            System.out.print("Se ejecut  la excepci n....");
+            e.printStackTrace();
+        }
+
+        finally {
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                }
+            if (stmt != null)
+                try {
+                    stmt.close();
+                } catch (Exception e) {
+                }
+            if (con != null)
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+        }
+    }
+
+    private static void displayRow(String title, ResultSet rs) {
+        try {
+           System.out.println(title);
+           while (rs.next()) {
+              System.out.println("Carnet--> "+rs.getString("carnet") + " Nombre--> " + rs.getString("nombre1"));
+              System.out.println();
+           }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+     }
 
 }

@@ -22,12 +22,12 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
     public static Metodos metodos;
 
     // Declarando costantes
-    private JPanel panelVentanaOpcionesAdministrativo = new JPanel();
-    private JButton botonEliminar, botonVolver, botonEditar, botonBuscar, botonRefrescar;
-    private JLabel cedulaLabel;
-    private JTextField cedula_txt;
+    public JPanel panelVentanaOpcionesAdministrativo = new JPanel();
+    public JButton botonEliminar, botonVolver, botonEditar, botonBuscar, botonRefrescar;
+    public JLabel cedulaLabel;
+    public JTextField cedula_txt;
 
-    private String[] cabecera = { "Nombre", "Cédula", "Edad", "Sexo", "Transtorno" };
+    public String[] cabecera = { "Nombre", "Cédula", "Edad", "Sexo", "Transtorno" };
 
     // Creacion de la tabla para mostrar el registro de pacientes
     DefaultTableModel modeloTabla = new DefaultTableModel(cabecera, 10000) {
@@ -37,8 +37,8 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
             return false;
         }
     };
-    JTable tablaPacientes = new JTable(modeloTabla);
-    JScrollPane scroll = new JScrollPane(tablaPacientes);
+    public JTable tablaPacientes = new JTable(modeloTabla);
+    public JScrollPane scroll = new JScrollPane(tablaPacientes);
 
     Font fuente = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 16);
     Font fuenteLabel = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 14);
@@ -211,39 +211,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
         if (e.getSource() == botonEliminar) {
 
-            // Ciclo if para poder eliminar los datos del paciente en la tabla
-            int filaSeleccionada = tablaPacientes.getSelectedRow();
-
-            if (tablaPacientes.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "La tabla está vacía");
-                return;
-            }
-
-            if (filaSeleccionada != -1) {
-
-                boolean filaVacia = true;
-                int conteoColumna = tablaPacientes.getColumnCount();
-
-                for (int columna = 0; columna < conteoColumna; columna++) {
-
-                    Object valor = tablaPacientes.getValueAt(filaSeleccionada, columna);
-                    if (valor != null && !valor.toString().trim().isEmpty()) {
-                        filaVacia = false;
-                        break;
-
-                    }
-
-                }
-                // Ciclo if
-
-                if (filaVacia) {
-                    // Ciclo if para mostrar el estado de la tabla
-                    // metodo para mostrar si una fila esta vacía
-                    // metodo para eliminar un registro de un paciente
-
-                    JOptionPane.showMessageDialog(null, "La fila seleccionada está vacía");
-                    return;
-                }
+           
                 int confirmacion = JOptionPane.showConfirmDialog(null,
                         "¿Estás seguro de que quieres eliminar al paciente seleccionado? ",
                         "Confirmar",
@@ -251,10 +219,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
                 if (confirmacion == JOptionPane.YES_OPTION) {
 
-                    Principal.listaPacientes.remove(filaSeleccionada);
-
-                    modeloTabla.removeRow(filaSeleccionada);
-                }
+                    metodos.EliminarElementos();
 
             }
 
