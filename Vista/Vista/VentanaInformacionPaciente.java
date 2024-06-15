@@ -1,5 +1,6 @@
 package Vista;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,23 +22,26 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
      // Declarando constantes 
     public JPanel panelInfoPaciente = new JPanel();
     public JButton botonRegistrar, botonCancelar;
-    public JLabel labelNombrePaciente, labelCedula, labelEdad, labelTranstorno, labelSexo, labelTitulo;
-    public static JTextField nombrePacienteTxt;
+    public JLabel labelNombrePaciente, labelCedula, labelEdad, labelTranstorno, labelSexo, labelTitulo, labelApellido;
+    public static JTextField nombrePacienteTxt, apellidoPacienteTxt;
     public static JTextField cedulaPacienteTxt;
     public static JTextField EdadPacienteTxt;
     public static JComboBox comboTranstorno; //JComboBox para poder seleccionar los tipos de transtorno 
     public static JRadioButton botonMasculino, botonFemenino; //Botones para seleccionar el tipo de sexo
     Font fuenteBoton = new Font("Century Schoolbook", Font.PLAIN, 20);
+    private ImageIcon imagen;
+    private ImageIcon icono;
 
     public VentanaInformacionPaciente() {
         //Definiendo caracteristicas al JPanel
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Registro de Paciente");
         this.setLocationRelativeTo(null);
-        this.setSize(385, 560);
+        this.setSize(410, 490);
         this.setContentPane(panelInfoPaciente);
-        panelInfoPaciente.setBackground(new Color(209, 242, 235));
+        panelInfoPaciente.setBackground(new Color(255, 255, 255));
         setLocationRelativeTo(null);
+        panelInfoPaciente.setBorder(BorderFactory.createLineBorder(new Color(53, 89, 252), 4));
         panelInfoPaciente.setLayout(null);
 
         Elementos();
@@ -51,16 +55,20 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
         // JButton
 
-        botonRegistrar = new JButton("Registrar");
-        botonRegistrar.setBounds(200, 465, 150, 30);
+        botonRegistrar = new JButton("");
+        botonRegistrar.setBounds(320, 395, 50, 40);
         botonRegistrar.setForeground(Color.BLACK);
         botonRegistrar.setBackground(new Color( 255, 255, 255));
         botonRegistrar.setFont(fuenteBoton);
         botonRegistrar.addActionListener(this);
         botonRegistrar.setToolTipText("Presione el boton para registrar al paciente");
+        this.PintarB(this.botonRegistrar, "Vista\\Imagenes\\guardarA.png");
+        botonRegistrar.setBorderPainted(false);
+        botonRegistrar.setOpaque(false);
+
 
         botonCancelar = new JButton();
-        botonCancelar.setBounds(20, 465, 55, 30);
+        botonCancelar.setBounds(20, 405, 55, 30);
         botonCancelar.setForeground(Color.BLACK);
         botonCancelar.setBackground(new Color(31, 209, 185));
         botonCancelar.addActionListener(this);
@@ -68,62 +76,70 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         botonCancelar.setContentAreaFilled(false);
         botonCancelar.setBorderPainted(false);
         botonCancelar.setToolTipText("Atrás");
-        ImageIcon iconoVolver = new ImageIcon("Vista/Imagenes/volver4.png");
-        if (iconoVolver != null && iconoVolver.getImage() != null) {
-            Image imagenVolverAjustada = iconoVolver.getImage().getScaledInstance(55, 40, Image.SCALE_SMOOTH);
-            botonCancelar.setIcon(new ImageIcon(imagenVolverAjustada));
-        }
+        this.PintarB(this.botonCancelar, "Vista\\Imagenes\\volverA.png");
+        botonRegistrar.setBorderPainted(false);
+        botonRegistrar.setOpaque(false);
 
         // JLabel
 
         labelNombrePaciente = new JLabel("Nombre:");
-        labelNombrePaciente.setBounds(20, 100, 350, 50);
-        Font fuente1 = new Font("Century Schoolbook", Font.PLAIN, 16);
+        labelNombrePaciente.setBounds(240, 20, 350, 50);
+        Font fuente1 = new Font("Century Schoolbook", Font.PLAIN, 13);
         labelNombrePaciente.setFont(fuente1);
         labelNombrePaciente.setForeground(new Color(23, 32, 42));
 
+        labelApellido = new JLabel("Apellido:");
+        labelApellido.setBounds(240, 85, 350, 50);
+        Font fuente12 = new Font("Century Schoolbook", Font.PLAIN, 13);
+        labelApellido.setFont(fuente12);
+        labelApellido.setForeground(new Color(23, 32, 42));
+
         labelCedula = new JLabel("Cédula:");
-        labelCedula.setBounds(30, 40, 400, 70);
-        Font fuente2 = new Font("Century Schoolbook", Font.PLAIN, 16);
+        labelCedula.setBounds(20, 10, 400, 70);
+        Font fuente2 = new Font("Century Schoolbook", Font.PLAIN, 13);
         labelCedula.setFont(fuente2);
         labelCedula.setForeground(new Color(23, 32, 42));
 
         labelEdad = new JLabel("Edad:");
-        labelEdad.setBounds(40, 150, 400, 70);
-        Font fuente3 = new Font("Century Schoolbook", Font.PLAIN, 16);
+        labelEdad.setBounds(20, 80, 400, 70);
+        Font fuente3 = new Font("Century Schoolbook", Font.PLAIN, 13);
         labelEdad.setFont(fuente3);
         labelEdad.setForeground(new Color(23, 32, 42));
 
         labelTranstorno = new JLabel("Tipo de transtorno:");
-        labelTranstorno.setBounds(20, 250, 400, 70);
-        Font fuente4 = new Font("Century Schoolbook", Font.PLAIN, 16);
+        labelTranstorno.setBounds(230, 150, 400, 70);
+        Font fuente4 = new Font("Century Schoolbook", Font.PLAIN, 14);
         labelTranstorno.setFont(fuente4);
         labelTranstorno.setForeground(new Color(23, 32, 42));
 
         labelSexo = new JLabel("Sexo:");
-        labelSexo.setBounds(40, 200, 400, 70);
-        Font fuente5 = new Font("Century Schoolbook", Font.PLAIN, 16);
+        labelSexo.setBounds(20, 160, 400, 70);
+        Font fuente5 = new Font("Century Schoolbook", Font.PLAIN, 14);
         labelSexo.setFont(fuente5);
         labelSexo.setForeground(new Color(23, 32, 42));
 
         // JTexfield
 
         nombrePacienteTxt = new JTextField(" ");
-        nombrePacienteTxt.setBounds(120,115, 130, 20);
-        nombrePacienteTxt.setToolTipText("Ingrese le nombre del paciente");
+        nombrePacienteTxt.setBounds(240,60, 95, 20);
+        nombrePacienteTxt.setToolTipText("Ingrese el nombre del paciente");
+
+        apellidoPacienteTxt = new JTextField(" ");
+        apellidoPacienteTxt.setBounds(240,125, 95, 20);
+        apellidoPacienteTxt.setToolTipText("Ingrese el nombre del paciente");
 
         cedulaPacienteTxt = new JTextField(" ");
-        cedulaPacienteTxt.setBounds(120, 65, 150, 20);
+        cedulaPacienteTxt.setBounds(20, 60, 120, 20);
         cedulaPacienteTxt.setToolTipText("Ingrese la cedula del paciente");
 
         EdadPacienteTxt = new JTextField(" ");
-        EdadPacienteTxt.setBounds(120, 177, 30, 20);
+        EdadPacienteTxt.setBounds(20, 130, 30, 20);
         EdadPacienteTxt.setToolTipText("Ingrese la edad del paciente");
 
         // JComboBox
 
         comboTranstorno = new JComboBox();
-        comboTranstorno.setBounds(195, 280, 175, 30);
+        comboTranstorno.setBounds(230, 205, 155, 30);
         comboTranstorno.addItem("Depresión");
         comboTranstorno.addItem("Obsesivo Compulsivo");
         comboTranstorno.addItem("Ansiedad");
@@ -137,13 +153,13 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         // JRadioButton
 
         botonMasculino = new JRadioButton("Masculino");
-        botonMasculino.setBounds(120, 220, 95, 35);
-        botonMasculino.setBackground(new Color(209, 242, 235));
+        botonMasculino.setBounds(10, 210, 95, 35);
+        botonMasculino.setBackground(new Color(255, 255, 255));
         botonMasculino.setToolTipText("Seleccione el sexo del paciente");
 
         botonFemenino = new JRadioButton("Femenino");
-        botonFemenino.setBounds(240, 220, 95, 35);
-        botonFemenino.setBackground(new Color(209, 242, 235));
+        botonFemenino.setBounds(110, 210, 95, 35);
+        botonFemenino.setBackground(new Color(255, 255, 255));
         botonFemenino.setToolTipText("Seleccione el sexo del paciente");
 
         ButtonGroup grupoBotones = new ButtonGroup();
@@ -154,12 +170,13 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         panelInfoPaciente.add(EdadPacienteTxt);
         panelInfoPaciente.add(cedulaPacienteTxt);
         panelInfoPaciente.add(nombrePacienteTxt);
-
+        panelInfoPaciente.add(apellidoPacienteTxt);
         panelInfoPaciente.add(labelTranstorno);
         panelInfoPaciente.add(labelSexo);
         panelInfoPaciente.add(labelNombrePaciente);
         panelInfoPaciente.add(labelEdad);
         panelInfoPaciente.add(labelCedula);
+        panelInfoPaciente.add(labelApellido);
 
         panelInfoPaciente.add(botonRegistrar);
         panelInfoPaciente.add(botonCancelar);
@@ -266,5 +283,20 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         
 
     }// Fin action listener
+    private void PintarB(JButton lbl, String ruta) {
+        this.imagen = new ImageIcon(ruta);
+        this.icono = new ImageIcon(
+                this.imagen.getImage().getScaledInstance(
+                        lbl.getWidth(),
+                        lbl.getHeight(),
+                        Image.SCALE_DEFAULT));
+        lbl.setIcon(this.icono);
+        this.repaint();
+    }
+
+
+
+
+
 
 }// Fin Clase principal

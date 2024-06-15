@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Modelo.Paciente;
 import Vista.VentanaOpcionesAdministrativo;
 import Vista.AcercaNosotros;
+import Vista.VentanaInformacionPaciente;
 
 public class Principal {
 
@@ -25,7 +26,7 @@ public class Principal {
          /*VentanaOpcionesAdministrativo v = new VentanaOpcionesAdministrativo();
          v.setVisible(true); */
 
-        AcercaNosotros a = new AcercaNosotros();
+        VentanaInformacionPaciente a = new VentanaInformacionPaciente();
         a.setVisible(true);
          
         
