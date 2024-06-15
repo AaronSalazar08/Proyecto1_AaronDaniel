@@ -6,14 +6,10 @@ import java.util.ArrayList;
 
 import Modelo.Paciente;
 import Vista.AcercaNosotros;
-<<<<<<< HEAD
 import Vista.VentanaInformacionPaciente;
-=======
 import Vista.LoginAdmin;
 import Vista.MenuPrimeraVista;
-import Vista.VentanaInformacionPaciente;
 import Vista.VentanaOpcionesAdministrativo;
->>>>>>> 46d4766d6c0ea5d6e760822fa76c0aa535ccea2b
 
 public class Principal {
 
@@ -41,16 +37,9 @@ public class Principal {
         registroPaciente.setMetodos(metodos);
         administrativo.setMetodos(metodos);
 
-<<<<<<< HEAD
-        VentanaInformacionPaciente a = new VentanaInformacionPaciente();
-        a.setVisible(true);
-         
-        
-=======
 
         // Se hace visible la clase LogIn que es donde el usuario inicia sesion
         logIn.setVisible(true);
->>>>>>> 46d4766d6c0ea5d6e760822fa76c0aa535ccea2b
 
     }
 
