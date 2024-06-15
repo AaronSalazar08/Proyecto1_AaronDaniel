@@ -8,7 +8,7 @@ public class Paciente  {
   protected String sexo;
   protected int edad;
 
-public Paciente(String nombre, String cedula, String sexo, int edad, String transtrorno) {
+public Paciente(String cedula, String nombre, String sexo, int edad, String transtrorno) {
   
     this.transtorno = transtrorno;
 }
