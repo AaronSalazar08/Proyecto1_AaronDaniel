@@ -215,7 +215,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
 
 
-    
+
 
     private static void displayRow(String title, ResultSet rs) {
         try {
