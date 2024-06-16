@@ -26,8 +26,8 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
     public JButton botonEliminar, botonVolver, botonEditar, botonBuscar, botonRefrescar;
     public JLabel cedulaLabel;
     public JTextField cedula_txt;
-
     
+
     private String[] cabecera = { "Cédula", "Nombre","Apellido", "Sexo", "Edad", "Transtorno" };
 
     public DefaultTableModel model;
@@ -167,11 +167,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
          
 
         // JSCROLLPANE
-        model = new DefaultTableModel();
-        tablaPacientes = new JTable(model);
-        scroll = new JScrollPane(tablaPacientes);
         scroll.setBounds(40, 100, 700, 350);
-        
 
         // AGREGAR CONSTANTES AL PANEL
 
@@ -208,7 +204,12 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         }
         if(e.getSource() == botonRefrescar){
 
-            metodos.mostrarDatosEnTabla();
+            
+
+
+
+
+            
         }
 
         if (e.getSource() == botonEliminar) {
