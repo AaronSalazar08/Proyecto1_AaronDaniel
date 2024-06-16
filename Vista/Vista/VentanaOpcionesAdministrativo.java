@@ -28,7 +28,11 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
     public JTextField cedula_txt;
 
     
-    public JTable tablaPacientes; 
+    private String[] cabecera = { "Cédula", "Nombre","Apellido", "Sexo", "Edad", "Transtorno" };
+
+    public DefaultTableModel model;
+    public JTable tablaPacientes;
+    public JScrollPane scroll;
 
     Font fuente = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 16);
     Font fuenteLabel = new Font("Century Schoolbook", Font.ROMAN_BASELINE, 14);
@@ -163,8 +167,11 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
          
 
         // JSCROLLPANE
-        JScrollPane scroll = new JScrollPane(tablaPacientes);
+        model = new DefaultTableModel();
+        tablaPacientes = new JTable(model);
+        scroll = new JScrollPane(tablaPacientes);
         scroll.setBounds(40, 100, 700, 350);
+        
 
         // AGREGAR CONSTANTES AL PANEL
 
@@ -202,9 +209,6 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         if(e.getSource() == botonRefrescar){
 
             metodos.mostrarDatosEnTabla();
-
-
-            
         }
 
         if (e.getSource() == botonEliminar) {

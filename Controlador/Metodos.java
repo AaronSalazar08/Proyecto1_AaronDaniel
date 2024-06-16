@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import java.sql.PreparedStatement;
@@ -116,9 +117,9 @@ public class Metodos {
 
     }
 
-    public void InsertarElementos (){
+    public void InsertarElementos() {
 
-        //Creacion de instancia para volver al menú principal 
+        // Creacion de instancia para volver al menú principal
         String entradaNombrePaciente = ventanaRegistroPaciente.nombrePacienteTxt.getText().trim();
         String entradaApellido = ventanaRegistroPaciente.apellidoPacienteTxt.getText().trim();
         String entradaCedulaPaciente = ventanaRegistroPaciente.cedulaPacienteTxt.getText().trim();
@@ -131,7 +132,8 @@ public class Metodos {
         int exito = 0;
 
         // Validate input fields
-        if (entradaNombrePaciente.isEmpty() ||entradaApellido.isEmpty()|| entradaEdadPaciente.isEmpty() || entradaCedulaPaciente.isEmpty()) {
+        if (entradaNombrePaciente.isEmpty() || entradaApellido.isEmpty() || entradaEdadPaciente.isEmpty()
+                || entradaCedulaPaciente.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Verifique que los campos a rellenar no estén vacíos");
             return;
         }
@@ -156,15 +158,19 @@ public class Metodos {
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
 
         // Prepare SQL statement for inserting record
-        String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('" + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
+        String SQL = "INSERT INTO pacientes (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('"
+                + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente
+                + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
 
         // Establish connection with database
         try {
 
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true", "root", "091623");
-                Statement stmt = con.createStatement();
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
+            Statement stmt = con.createStatement();
             // Execute SQL statement
-             exito = stmt.executeUpdate(SQL);
+            exito = stmt.executeUpdate(SQL);
 
             // Process the result of the query
             if (exito != 0) {
@@ -178,6 +184,9 @@ public class Metodos {
                 ventanaRegistroPaciente.comboTranstorno.setSelectedIndex(0);
                 ventanaRegistroPaciente.botonMasculino.setSelected(false);
                 ventanaRegistroPaciente.botonFemenino.setSelected(false);
+
+                ventanaRegistroPaciente.setVisible(false);
+                ventanaPrincipal.setVisible(true);
 
                 // (Optional) Display newly created record
                 // displayRow("paciente", stmt.executeQuery("SELECT * FROM paciente"));
@@ -196,49 +205,53 @@ public class Metodos {
     public void mostrarDatosEnTabla() {
         Connection con = null;
         ResultSet rs = null;
-        String[] encabezado = { "Nombre","Apellido", "Cédula", "Edad", "Sexo", "Transtorno" };
-    
+
         String SQL = "SELECT * FROM pacientes";
-    
+
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true", "root", "Proverbios18.22");
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
-    
+
             // Obtener metadata de la consulta
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
-    
+
             // Obtener nombres de las columnas
             String[] columnNames = new String[columnCount];
             for (int i = 1; i <= columnCount; i++) {
                 columnNames[i - 1] = metaData.getColumnName(i);
             }
-    
-            // Crear modelo de tabla y agregar filas
-            DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+          
+            ventanaAdministrador.model.setColumnIdentifiers(columnNames);
+            ventanaAdministrador.model.setRowCount(0);
+
             while (rs.next()) {
-                Object[] row = new Object[columnCount];
+                Object[] rowData = new Object[columnCount];
                 for (int i = 1; i <= columnCount; i++) {
-                    row[i - 1] = rs.getObject(i);
+                    rowData[i - 1] = rs.getObject(i);
                 }
-                tableModel.addRow(row);
+                ventanaAdministrador.model.addRow(rowData);
             }
 
-            tableModel = new DefaultTableModel(encabezado, 10000); 
-    
-            // Asignar modelo de tabla al JTable existente
-            ventanaAdministrador.tablaPacientes.setModel(tableModel);
-           
-    
+            ventanaAdministrador.tablaPacientes.revalidate();
+            ventanaAdministrador.tablaPacientes.repaint();
+
+            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
         } finally {
             // Cerrar ResultSet y Connection
             try {
-                if (rs != null) rs.close();
-                if (con != null) con.close();
+                if (rs != null)
+                    rs.close();
+                if (con != null)
+                    con.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
