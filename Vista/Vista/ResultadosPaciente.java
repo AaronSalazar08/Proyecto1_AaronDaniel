@@ -33,8 +33,7 @@ public class ResultadosPaciente extends JFrame implements ActionListener {
 
     public JPanel panelResultado = new JPanel();
 
-
-    //Declarando constantes
+    // Declarando constantes
 
     public JLabel cedula_lb;
     public JTextField cedula_txt;
@@ -42,7 +41,8 @@ public class ResultadosPaciente extends JFrame implements ActionListener {
     public JButton botonBuscar;
     Font fuenteBoton = new Font("Century Schoolbook", Font.PLAIN, 20);
     Font fuenteLabel = new Font("Century Schoolbook", Font.BOLD, 16);
-    private String[] cabecera = { "Nombre","Apellido", "Cédula", "Edad", "Sexo", "Transtorno" };//Titulos a llevar el JTable
+    private String[] cabecera = { "Nombre", "Apellido", "Cédula", "Edad", "Sexo", "Transtorno" };// Titulos a llevar el
+                                                                                                 // JTable
 
     DefaultTableModel modeloTabla = new DefaultTableModel(cabecera, 1) {
 
@@ -55,7 +55,7 @@ public class ResultadosPaciente extends JFrame implements ActionListener {
     JScrollPane scroll = new JScrollPane(tablaPacientes);
 
     public ResultadosPaciente() {
-        //Definiendo caracteristicas al JPanel
+        // Definiendo caracteristicas al JPanel
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setSize(800, 400);
@@ -69,7 +69,6 @@ public class ResultadosPaciente extends JFrame implements ActionListener {
 
     public void Elementos() {
 
-    
         cedula_lb = new JLabel("Cédula: ");
         cedula_lb.setBounds(30, 70, 400, 70);
         cedula_lb.setFont(fuenteLabel);
@@ -119,65 +118,57 @@ public class ResultadosPaciente extends JFrame implements ActionListener {
 
     }
 
-    //Metodo para las acciones de los botones 
+    // Metodo para las acciones de los botones
 
     public void actionPerformed(ActionEvent e) {
 
-       //Creacion de instancia para regresar al menu principal 
+        // Creacion de instancia para regresar al menu principal
 
         if (e.getSource() == botonVolver) {
-           
+
             MenuPrimeraVista instancPrimeraVista = new MenuPrimeraVista();
             instancPrimeraVista.setVisible(true);
             this.dispose();
 
         }
-        //if (e.getSource() == boton){
+        // if (e.getSource() == boton){
 
-
-
-        }
-        //Ciclo if para buscar el registro de un paciente en el JTable 
         if (e.getSource() == botonBuscar) {
 
-            
             try {
                 String busqueda = cedula_txt.getText();
 
                 for (Paciente buscado : Principal.listaPacientes) {
 
-                    
-    
                     if (buscado.getCedula().equals(busqueda)) {
-    
+
                         JOptionPane.showMessageDialog(null, "Paciente encontrado");
                         for (int contador = 0; contador < Principal.listaPacientes.size(); contador++) {
-    
+
                             Paciente paciente = Principal.listaPacientes.get(contador);
                             tablaPacientes.setValueAt(paciente.getNombre(), contador, 0);
                             tablaPacientes.setValueAt(paciente.getCedula(), contador, 1);
                             tablaPacientes.setValueAt(paciente.getEdad(), contador, 2);
                             tablaPacientes.setValueAt(paciente.getSexo(), contador, 3);
-                           
+
                         }
-    
+
                     } else {
-    
+
                         JOptionPane.showMessageDialog(null, "Paciente no encontrado");
-    
+
                     }
 
-                  
                 }
-    
 
-            }catch (Exception ex){
+            } catch (Exception ex) {
 
                 JOptionPane.showMessageDialog(null, " Error");
 
             }
-           
+
         }
+        // Ciclo if para buscar el registro de un paciente en el JTable
 
     }
 
