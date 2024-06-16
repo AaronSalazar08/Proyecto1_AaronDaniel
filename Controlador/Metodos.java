@@ -1,13 +1,11 @@
 package Controlador;
 
-
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
-
 
 import javax.swing.JOptionPane;
 
@@ -16,7 +14,6 @@ import Vista.LoginAdmin;
 import Vista.MenuPrimeraVista;
 import Vista.VentanaInformacionPaciente;
 import Vista.VentanaOpcionesAdministrativo;
-
 
 public class Metodos {
 
@@ -112,11 +109,6 @@ public class Metodos {
         }
 
     }
-    
-
-
-
-
 
     public void EliminarElementos() {
 
@@ -129,7 +121,8 @@ public class Metodos {
 
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true", "root",
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root",
                     "Proverbios18.22");
             con.setAutoCommit(true);
 
@@ -171,14 +164,14 @@ public class Metodos {
 
     private static void displayRow(String title, ResultSet rs) {
         try {
-           System.out.println(title);
-           while (rs.next()) {
-              System.out.println("Carnet--> "+rs.getString("carnet") + " Nombre--> " + rs.getString("nombre1"));
-              System.out.println();
-           }
+            System.out.println(title);
+            while (rs.next()) {
+                System.out.println("Carnet--> " + rs.getString("carnet") + " Nombre--> " + rs.getString("nombre1"));
+                System.out.println();
+            }
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
-     }
+    }
 
 }
