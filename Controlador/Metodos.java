@@ -154,12 +154,13 @@ public class Metodos {
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
 
         // Prepare SQL statement for inserting record
-        String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('" + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
+        String SQL = "INSERT INTO pacientes (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('" + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
 
         // Establish connection with database
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true", "root", "091623");
-             Statement stmt = conn.createStatement()) {
+        try {
 
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true", "root", "Proverbios18.22");
+                Statement stmt = con.createStatement();
             // Execute SQL statement
              exito = stmt.executeUpdate(SQL);
 
