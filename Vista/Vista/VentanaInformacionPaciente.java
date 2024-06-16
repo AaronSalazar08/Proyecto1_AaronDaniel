@@ -203,6 +203,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
     // Metodo para la accion de botones
     public void actionPerformed(ActionEvent e) {
 
+        //Metodo para insertar un elemento y enviarlo a la base de datos MySQL
         if(e.getSource() == botonRegistrar){
             metodos.InsertarElementos();
         }
