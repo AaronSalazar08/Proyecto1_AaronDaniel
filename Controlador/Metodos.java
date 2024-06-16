@@ -117,15 +117,14 @@ public class Metodos {
     public void InsertarElementos (){
 
         //Creacion de instancia para volver al menú principal 
-          String entradaNombrePaciente = ventanaRegistroPaciente.nombrePacienteTxt.getText().trim();
-          String entradaApellido = ventanaRegistroPaciente.apellidoPacienteTxt.getText().trim();
+        String entradaNombrePaciente = ventanaRegistroPaciente.nombrePacienteTxt.getText().trim();
+        String entradaApellido = ventanaRegistroPaciente.apellidoPacienteTxt.getText().trim();
         String entradaCedulaPaciente = ventanaRegistroPaciente.cedulaPacienteTxt.getText().trim();
         String entradaEdadPaciente = ventanaRegistroPaciente.EdadPacienteTxt.getText().trim();
         String transtornoSeleccionado = String.valueOf(ventanaRegistroPaciente.comboTranstorno.getSelectedItem());
         boolean masculinoSeleccionado = ventanaRegistroPaciente.botonMasculino.isSelected();
         boolean femeninoSeleccionado = ventanaRegistroPaciente.botonFemenino.isSelected();
         Connection con = null;
-       
         ResultSet rs = null;
         int exito = 0;
 

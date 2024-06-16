@@ -203,7 +203,10 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
     // Metodo para la accion de botones
     public void actionPerformed(ActionEvent e) {
 
-        metodos.InsertarElementos();
+        if(e.getSource() == botonRegistrar){
+            metodos.InsertarElementos();
+        }
+       
     }
 
     private static void displayRow(String title, ResultSet rs) {
