@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSetMetaData;
 
 import Vista.AcercaNosotros;
+import Vista.EditarPaciente;
 import Vista.LoginAdmin;
 import Vista.MenuPrimeraVista;
 import Vista.VentanaInformacionPaciente;
@@ -29,14 +30,16 @@ public class Metodos {
     private MenuPrimeraVista ventanaPrincipal;
     private VentanaInformacionPaciente ventanaRegistroPaciente;
     private VentanaOpcionesAdministrativo ventanaAdministrador;
+    private EditarPaciente ventanaEditar;
 
     public Metodos(LoginAdmin ventanaLogin, AcercaNosotros ventanaAcercaNosotros, MenuPrimeraVista ventanaPrincipal,
-            VentanaInformacionPaciente ventanaRegistroPaciente, VentanaOpcionesAdministrativo ventanaAdministrador) {
+            VentanaInformacionPaciente ventanaRegistroPaciente, VentanaOpcionesAdministrativo ventanaAdministrador, EditarPaciente ventanaEditar) {
         this.ventanaLogin = ventanaLogin;
         this.ventanaAcercaNosotros = ventanaAcercaNosotros;
         this.ventanaPrincipal = ventanaPrincipal;
         this.ventanaRegistroPaciente = ventanaRegistroPaciente;
         this.ventanaAdministrador = ventanaAdministrador;
+        this.ventanaEditar = ventanaEditar;
     }
 
     public void Login_Principal() {
@@ -102,6 +105,20 @@ public class Metodos {
         ventanaAcercaNosotros.setVisible(false);
         ventanaPrincipal.setVisible(true);
     }
+
+    public void Administrador_Editar (){
+
+        ventanaAdministrador.setVisible(false);
+        ventanaEditar.setVisible(true);
+        
+    }
+
+    public void Editar_Administrador (){
+
+        ventanaEditar.setVisible(false);
+        ventanaAdministrador.setVisible(true);
+    }
+
 
     public void SalirAplicacion() {
 

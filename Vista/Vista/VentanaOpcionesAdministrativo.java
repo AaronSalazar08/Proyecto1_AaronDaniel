@@ -210,6 +210,10 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
             metodos.mostrarDatosEnTabla();
         }
+        if(e.getSource() == botonEditar){
+
+            metodos.Administrador_Editar();
+        }
 
         if (e.getSource() == botonEliminar) {
 

@@ -25,7 +25,7 @@ import java.sql.Statement;
 import java.awt.Font;
 import java.awt.Image;
 
-public class VentanaInformacionPaciente extends JFrame implements ActionListener {
+public class EditarPaciente extends JFrame implements ActionListener {
 
     public void setMetodos(Metodos metodos) {
         this.metodos = metodos;
@@ -46,10 +46,10 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
     private ImageIcon imagen;
     private ImageIcon icono;
 
-    public VentanaInformacionPaciente() {
+    public EditarPaciente() {
         // Definiendo caracteristicas al JPanel
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        setTitle("Registro de Paciente");
+        setTitle("Actualización de Paciente");
         this.setLocationRelativeTo(null);
         this.setSize(410, 490);
         this.setContentPane(panelInfoPaciente);
@@ -212,7 +212,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
         if(e.getSource() == botonCancelar){
 
-            metodos.Registro_Principal();
+            metodos.Editar_Administrador();
         }
        
     }

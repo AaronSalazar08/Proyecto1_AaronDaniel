@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Modelo.Paciente;
 import Vista.AcercaNosotros;
+import Vista.EditarPaciente;
 import Vista.VentanaInformacionPaciente;
 import Vista.LoginAdmin;
 import Vista.MenuPrimeraVista;
@@ -23,10 +24,11 @@ public class Principal {
         AcercaNosotros acercaNosotros = new AcercaNosotros();
         VentanaInformacionPaciente registroPaciente = new VentanaInformacionPaciente();
         VentanaOpcionesAdministrativo administrativo = new VentanaOpcionesAdministrativo();
+        EditarPaciente editarPaciente = new EditarPaciente();
 
         // Se crea una instancia de la Clase Metdos en donde se le pasan como
         // paramatreos las instancias de las clases anteriormente mencionadas
-        Metodos metodos = new Metodos(logIn, acercaNosotros, vistaPrincipal, registroPaciente, administrativo);
+        Metodos metodos = new Metodos(logIn, acercaNosotros, vistaPrincipal, registroPaciente, administrativo, editarPaciente);
 
         // Para cada instancia se le incova el metodo se "setMetodos", el cual es un
         // metodo constructor para poder trabajar con la clase metodos en todas las
@@ -36,6 +38,7 @@ public class Principal {
         acercaNosotros.setMetodos(metodos);
         registroPaciente.setMetodos(metodos);
         administrativo.setMetodos(metodos);
+        editarPaciente.setMetodos(metodos);
 
 
         // Se hace visible la clase LogIn que es donde el usuario inicia sesion
