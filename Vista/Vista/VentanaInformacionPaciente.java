@@ -205,86 +205,17 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
     //Metodo para la accion de botones 
     public void actionPerformed(ActionEvent e) {
 
-<<<<<<< HEAD
-        //Creacion de instancia para volver al menú principal 
-          String entradaNombrePaciente = nombrePacienteTxt.getText().trim();
-          String entradaApellido = apellidoPacienteTxt.getText().trim();
-        String entradaCedulaPaciente = cedulaPacienteTxt.getText().trim();
-        String entradaEdadPaciente = EdadPacienteTxt.getText().trim();
-        String transtornoSeleccionado = String.valueOf(comboTranstorno.getSelectedItem());
-        boolean masculinoSeleccionado = botonMasculino.isSelected();
-        boolean femeninoSeleccionado = botonFemenino.isSelected();
-        Connection con = null;
-=======
         //Metodo para insertar un elemento y enviarlo a la base de datos MySQL
         if(e.getSource() == botonRegistrar){
             metodos.InsertarElementos();
         }
->>>>>>> 0c0356db781ce846ddc3929779ec70ae6a04f137
        
-        ResultSet rs = null;
-        int exito = 0;
-
-        // Validate input fields
-        if (entradaNombrePaciente.isEmpty() ||entradaApellido.isEmpty()|| entradaEdadPaciente.isEmpty() || entradaCedulaPaciente.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Verifique que los campos a rellenar no estén vacíos");
-            return;
-        }
-
-        // Convert age to integer
-        int edadPaciente;
-        try {
-            edadPaciente = Integer.parseInt(entradaEdadPaciente);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la edad");
-            EdadPacienteTxt.setText("");
-            return;
-        }
-
-        // Validate gender selection
-        if (!masculinoSeleccionado && !femeninoSeleccionado) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione el sexo del paciente.");
-            return;
-        }
-
-        
-        String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
-
-        // Prepare SQL statement for inserting record
-        String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('" + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
-
-        // Establish connection with database
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true", "root", "091623");
-             Statement stmt = conn.createStatement()) {
-
-            // Execute SQL statement
-             exito = stmt.executeUpdate(SQL);
-
-            // Process the result of the query
-            if (exito != 0) {
-                JOptionPane.showMessageDialog(null, "Registrado exitosamente");
-
-                // Clear input fields
-                nombrePacienteTxt.setText("");
-                apellidoPacienteTxt.setText("");
-                cedulaPacienteTxt.setText("");
-                EdadPacienteTxt.setText("");
-                comboTranstorno.setSelectedIndex(0);
-                botonMasculino.setSelected(false);
-                botonFemenino.setSelected(false);
-
-                // (Optional) Display newly created record
-                // displayRow("paciente", stmt.executeQuery("SELECT * FROM paciente"));
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al registrar el paciente");
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
-        }
     }
+
+
+
+
+    
 
     private static void displayRow(String title, ResultSet rs) {
         try {
