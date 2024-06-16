@@ -4,6 +4,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -106,6 +107,83 @@ public class Metodos {
         if (confirmacion == JOptionPane.YES_OPTION) {
 
             System.exit(0);
+        }
+
+    }
+
+    public void InsertarElementos (){
+
+        //Creacion de instancia para volver al menú principal 
+          String entradaNombrePaciente = ventanaRegistroPaciente.nombrePacienteTxt.getText().trim();
+          String entradaApellido = ventanaRegistroPaciente.apellidoPacienteTxt.getText().trim();
+        String entradaCedulaPaciente = ventanaRegistroPaciente.cedulaPacienteTxt.getText().trim();
+        String entradaEdadPaciente = ventanaRegistroPaciente.EdadPacienteTxt.getText().trim();
+        String transtornoSeleccionado = String.valueOf(ventanaRegistroPaciente.comboTranstorno.getSelectedItem());
+        boolean masculinoSeleccionado = ventanaRegistroPaciente.botonMasculino.isSelected();
+        boolean femeninoSeleccionado = ventanaRegistroPaciente.botonFemenino.isSelected();
+        Connection con = null;
+       
+        ResultSet rs = null;
+        int exito = 0;
+
+        // Validate input fields
+        if (entradaNombrePaciente.isEmpty() ||entradaApellido.isEmpty()|| entradaEdadPaciente.isEmpty() || entradaCedulaPaciente.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Verifique que los campos a rellenar no estén vacíos");
+            return;
+        }
+
+        // Convert age to integer
+        int edadPaciente;
+        try {
+            edadPaciente = Integer.parseInt(entradaEdadPaciente);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la edad");
+            ventanaRegistroPaciente.EdadPacienteTxt.setText("");
+            return;
+        }
+
+        // Validate gender selection
+        if (!masculinoSeleccionado && !femeninoSeleccionado) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione el sexo del paciente.");
+            return;
+        }
+
+        // Determine patient's sex
+        String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
+
+        // Prepare SQL statement for inserting record
+        String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('" + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
+
+        // Establish connection with database
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true", "root", "091623");
+             Statement stmt = conn.createStatement()) {
+
+            // Execute SQL statement
+             exito = stmt.executeUpdate(SQL);
+
+            // Process the result of the query
+            if (exito != 0) {
+                JOptionPane.showMessageDialog(null, "Registrado exitosamente");
+
+                // Clear input fields
+                ventanaRegistroPaciente.nombrePacienteTxt.setText("");
+                ventanaRegistroPaciente.apellidoPacienteTxt.setText("");
+                ventanaRegistroPaciente.cedulaPacienteTxt.setText("");
+                ventanaRegistroPaciente.EdadPacienteTxt.setText("");
+                ventanaRegistroPaciente.comboTranstorno.setSelectedIndex(0);
+                ventanaRegistroPaciente.botonMasculino.setSelected(false);
+                ventanaRegistroPaciente.botonFemenino.setSelected(false);
+
+                // (Optional) Display newly created record
+                // displayRow("paciente", stmt.executeQuery("SELECT * FROM paciente"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al registrar el paciente");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
         }
 
     }
