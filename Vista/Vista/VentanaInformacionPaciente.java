@@ -205,6 +205,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
     //Metodo para la accion de botones 
     public void actionPerformed(ActionEvent e) {
 
+<<<<<<< HEAD
         //Creacion de instancia para volver al menú principal 
           String entradaNombrePaciente = nombrePacienteTxt.getText().trim();
           String entradaApellido = apellidoPacienteTxt.getText().trim();
@@ -214,6 +215,12 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         boolean masculinoSeleccionado = botonMasculino.isSelected();
         boolean femeninoSeleccionado = botonFemenino.isSelected();
         Connection con = null;
+=======
+        //Metodo para insertar un elemento y enviarlo a la base de datos MySQL
+        if(e.getSource() == botonRegistrar){
+            metodos.InsertarElementos();
+        }
+>>>>>>> 0c0356db781ce846ddc3929779ec70ae6a04f137
        
         ResultSet rs = null;
         int exito = 0;
