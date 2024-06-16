@@ -211,15 +211,75 @@ public class Metodos {
 
     }
 
+    public void buscarPorCedula() {
+        String cedulaBusqueda = ventanaAdministrador.cedula_txt.getText().trim();  // Asume que hay un campo de texto para ingresar la cédula a buscar
+        Connection con = null;
+        ResultSet rs = null;
+    
+        if (cedulaBusqueda.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una cédula para buscar.");
+            return;
+        }
+    
+        String SQL = "SELECT * FROM pacientes WHERE cedula = ?";
+    
+        try {
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
+            PreparedStatement pstmt = con.prepareStatement(SQL);
+            pstmt.setString(1, cedulaBusqueda);
+            rs = pstmt.executeQuery();
+    
+            if (rs.next()) {
+                // Poblar los campos del formulario con los datos recuperados
+                ventanaEditar.nombrePacienteTxt.setText(rs.getString("nombre"));
+                ventanaEditar.apellidoPacienteTxt.setText(rs.getString("apellido"));
+                ventanaEditar.cedulaPacienteTxt.setText(rs.getString("cedula"));
+                ventanaEditar.EdadPacienteTxt.setText(rs.getString("edad"));
+                ventanaEditar.comboTranstorno.setSelectedItem(rs.getString("transtorno"));
+    
+                String sexo = rs.getString("sexo");
+                if (sexo.equals("Masculino")) {
+                    ventanaEditar.botonMasculino.setSelected(true);
+                } else if (sexo.equals("Femenino")) {
+                    ventanaEditar.botonFemenino.setSelected(true);
+                }
+    
+                // Mostrar mensaje de éxito
+                JOptionPane.showMessageDialog(null, "Paciente encontrado y datos desplegados.");
+                ventanaEditar.setVisible(true);
+                ventanaAdministrador.setVisible(false);
+                
+            } else {
+                // Mostrar mensaje de error si no se encuentra el paciente
+                JOptionPane.showMessageDialog(null, "No se encontró ningún paciente con la cédula proporcionada.");
+            }
+    
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
+        } finally {
+            // Cerrar ResultSet y Connection
+            try {
+                if (rs != null) rs.close();
+                if (con != null) con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+
     public void actualizarElementos() {
-        // Crear instancia para volver al menú principal
-        String entradaNombrePaciente = ventanaRegistroPaciente.nombrePacienteTxt.getText().trim();
-        String entradaApellido = ventanaRegistroPaciente.apellidoPacienteTxt.getText().trim();
-        String entradaCedulaPaciente = ventanaRegistroPaciente.cedulaPacienteTxt.getText().trim();
-        String entradaEdadPaciente = ventanaRegistroPaciente.EdadPacienteTxt.getText().trim();
-        String transtornoSeleccionado = String.valueOf(ventanaRegistroPaciente.comboTranstorno.getSelectedItem());
-        boolean masculinoSeleccionado = ventanaRegistroPaciente.botonMasculino.isSelected();
-        boolean femeninoSeleccionado = ventanaRegistroPaciente.botonFemenino.isSelected();
+        // Obtener valores actuales de los campos de la ventanaEditar
+        String entradaNombrePaciente = ventanaEditar.nombrePacienteTxt.getText().trim();
+        String entradaApellido = ventanaEditar.apellidoPacienteTxt.getText().trim();
+        String entradaCedulaPaciente = ventanaEditar.cedulaPacienteTxt.getText().trim();
+        String entradaEdadPaciente = ventanaEditar.EdadPacienteTxt.getText().trim();
+        String transtornoSeleccionado = String.valueOf(ventanaEditar.comboTranstorno.getSelectedItem());
+        boolean masculinoSeleccionado = ventanaEditar.botonMasculino.isSelected();
+        boolean femeninoSeleccionado = ventanaEditar.botonFemenino.isSelected();
         Connection con = null;
         int exito = 0;
     
@@ -235,7 +295,7 @@ public class Metodos {
             edadPaciente = Integer.parseInt(entradaEdadPaciente);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la edad");
-            ventanaRegistroPaciente.EdadPacienteTxt.setText("");
+            ventanaEditar.EdadPacienteTxt.setText("");
             return;
         }
     
@@ -257,7 +317,7 @@ public class Metodos {
                     "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
                     "root", "Proverbios18.22");
             PreparedStatement pstmt = con.prepareStatement(SQL);
-            
+    
             // Asignar valores a los parámetros de la consulta
             pstmt.setString(1, entradaNombrePaciente);
             pstmt.setString(2, entradaApellido);
@@ -273,17 +333,18 @@ public class Metodos {
             if (exito != 0) {
                 JOptionPane.showMessageDialog(null, "Actualizado exitosamente");
     
+                ventanaEditar.setVisible(false);
+                ventanaAdministrador.setVisible(true);
                 // Limpiar campos de entrada
-                ventanaRegistroPaciente.nombrePacienteTxt.setText("");
-                ventanaRegistroPaciente.apellidoPacienteTxt.setText("");
-                ventanaRegistroPaciente.cedulaPacienteTxt.setText("");
-                ventanaRegistroPaciente.EdadPacienteTxt.setText("");
-                ventanaRegistroPaciente.comboTranstorno.setSelectedIndex(0);
-                ventanaRegistroPaciente.botonMasculino.setSelected(false);
-                ventanaRegistroPaciente.botonFemenino.setSelected(false);
+                ventanaEditar.nombrePacienteTxt.setText("");
+                ventanaEditar.apellidoPacienteTxt.setText("");
+                ventanaEditar.cedulaPacienteTxt.setText("");
+                ventanaEditar.EdadPacienteTxt.setText("");
+                ventanaEditar.comboTranstorno.setSelectedIndex(0);
+                ventanaEditar.botonMasculino.setSelected(false);
+                ventanaEditar.botonFemenino.setSelected(false);
     
-                ventanaRegistroPaciente.setVisible(false);
-                ventanaPrincipal.setVisible(true);
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar el paciente");
             }
@@ -292,7 +353,7 @@ public class Metodos {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
         } finally {
-            // Cerrar ResultSet y Connection
+            // Cerrar conexión y liberar recursos
             try {
                 if (con != null) con.close();
             } catch (SQLException ex) {
@@ -300,6 +361,7 @@ public class Metodos {
             }
         }
     }
+    
     
     public void mostrarDatosEnTabla() {
         Connection con = null;
