@@ -42,7 +42,7 @@ public class ResultadosPaciente extends JFrame implements ActionListener {
     public JButton botonBuscar;
     Font fuenteBoton = new Font("Century Schoolbook", Font.PLAIN, 20);
     Font fuenteLabel = new Font("Century Schoolbook", Font.BOLD, 16);
-    private String[] cabecera = { "Nombre", "Cédula", "Edad", "Sexo", "Transtorno" };//Titulos a llevar el JTable
+    private String[] cabecera = { "Nombre","Apellido", "Cédula", "Edad", "Sexo", "Transtorno" };//Titulos a llevar el JTable
 
     DefaultTableModel modeloTabla = new DefaultTableModel(cabecera, 1) {
 
@@ -130,6 +130,11 @@ public class ResultadosPaciente extends JFrame implements ActionListener {
             MenuPrimeraVista instancPrimeraVista = new MenuPrimeraVista();
             instancPrimeraVista.setVisible(true);
             this.dispose();
+
+        }
+        //if (e.getSource() == boton){
+
+
 
         }
         //Ciclo if para buscar el registro de un paciente en el JTable 

@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import com.mysql.jdbc.PreparedStatement;
 
 import Vista.AcercaNosotros;
 import Vista.LoginAdmin;
@@ -110,6 +113,80 @@ public class Metodos {
         }
 
     }
+<<<<<<< HEAD
+    
+   
+
+        public DefaultTableModel mostrarClientes(){
+            
+            String []  nombresColumnas = {"id","Nombre","Telefono"};
+            String [] registros = new String[3];
+            
+            DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
+            
+            String sql = "SELECT * FROM cliente";
+            
+            Connection cn = null;
+            
+            PreparedStatement pst = null;
+            
+            ResultSet rs = null;
+            
+            try
+            {
+                cn = ventanaRegistroPaciente.conectar();
+                
+                pst = cn.prepareStatement(sql);                        
+                
+                rs = pst.executeQuery();
+                
+                while(rs.next())
+                {
+                    registros[0] = rs.getString("id");
+                    
+                    registros[1] = rs.getString("nombre");
+                    
+                    registros[2] = rs.getString("telefono");
+                    
+                    modelo.addRow(registros);
+                    
+                }
+                
+               
+            }
+            catch(SQLException e)
+            {
+                
+                JOptionPane.showMessageDialog(null,"Error al conectar");
+                
+            }
+            finally
+            {
+                try
+                {
+                    if (rs != null) rs.close();
+                    
+                    if (pst != null) pst.close();
+                    
+                    if (cn != null) cn.close();
+                }
+                catch(SQLException e)
+                {
+                    JOptionPane.showMessageDialog(null,e);
+                }
+            }
+             return modelo;
+        }
+
+
+
+    
+
+
+    
+    
+=======
+>>>>>>> 0f9fb0795e9643ea127caa1d8e3da212762c4f91
 
     public void InsertarElementos (){
 
@@ -213,7 +290,7 @@ public class Metodos {
                 rs = stmt.executeQuery(sqlMostrar);
                 // displayRow("estudiantes", rs);
             } else
-                System.out.print("No se encontr  el carnet a eliminar");
+                System.out.print("No se encontró el carnet a eliminar");
 
         } catch (Exception e) {
             System.out.print("Se ejecut  la excepci n....");
