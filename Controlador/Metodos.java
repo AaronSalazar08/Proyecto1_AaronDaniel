@@ -157,10 +157,10 @@ public class Metodos {
         String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('" + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
 
         // Establish connection with database
-        try  {
-             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true", "root", "091623");
-             Statement stmt = con.createStatement();
+        try {
 
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true", "root", "091623");
+                Statement stmt = con.createStatement();
             // Execute SQL statement
              exito = stmt.executeUpdate(SQL);
 
@@ -202,9 +202,9 @@ public class Metodos {
 
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
                     "root",
-                    "Proverbios18.22");
+                    "091623");
             con.setAutoCommit(true);
 
             String sqlEliminar = "DELETE FROM pacientes where Cedula= cedula;";
