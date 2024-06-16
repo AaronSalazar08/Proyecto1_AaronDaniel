@@ -27,7 +27,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
     public JLabel cedulaLabel;
     public JTextField cedula_txt;
 
-    public String[] cabecera = { "Nombre", "Cédula", "Edad", "Sexo", "Transtorno" };
+    public String[] cabecera = { "Nombre","Apellido", "Cédula", "Edad", "Sexo", "Transtorno" };
 
     // Creacion de la tabla para mostrar el registro de pacientes
     DefaultTableModel modeloTabla = new DefaultTableModel(cabecera, 10000) {
@@ -207,6 +207,13 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
            metodos.Administrador_Principal();
 
+        }
+        if(e.getSource() == botonRefrescar){
+
+            
+
+
+            
         }
 
         if (e.getSource() == botonEliminar) {
