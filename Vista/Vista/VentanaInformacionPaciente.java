@@ -33,7 +33,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
     public static Metodos metodos;
 
-    // Declarando constantes
+     // Declarando constantes 
     public JPanel panelInfoPaciente = new JPanel();
     public JButton botonRegistrar, botonCancelar;
     public JLabel labelNombrePaciente, labelCedula, labelEdad, labelTranstorno, labelSexo, labelTitulo, labelApellido;
@@ -62,22 +62,24 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
     }
 
+
     @SuppressWarnings("unchecked")
     public void Elementos() {
-        // Inicializando constantes para el JPanel
+        //Inicializando constantes para el JPanel
 
         // JButton
 
         botonRegistrar = new JButton("");
         botonRegistrar.setBounds(320, 395, 50, 40);
         botonRegistrar.setForeground(Color.BLACK);
-        botonRegistrar.setBackground(new Color(255, 255, 255));
+        botonRegistrar.setBackground(new Color( 255, 255, 255));
         botonRegistrar.setFont(fuenteBoton);
         botonRegistrar.addActionListener(this);
         botonRegistrar.setToolTipText("Presione el boton para registrar al paciente");
         this.PintarB(this.botonRegistrar, "Vista\\Imagenes\\guardarA.png");
         botonRegistrar.setBorderPainted(false);
         botonRegistrar.setOpaque(false);
+
 
         botonCancelar = new JButton();
         botonCancelar.setBounds(20, 405, 55, 30);
@@ -133,11 +135,11 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         // JTexfield
 
         nombrePacienteTxt = new JTextField(" ");
-        nombrePacienteTxt.setBounds(240, 60, 95, 20);
+        nombrePacienteTxt.setBounds(240,60, 95, 20);
         nombrePacienteTxt.setToolTipText("Ingrese el nombre del paciente");
 
         apellidoPacienteTxt = new JTextField(" ");
-        apellidoPacienteTxt.setBounds(240, 125, 95, 20);
+        apellidoPacienteTxt.setBounds(240,125, 95, 20);
         apellidoPacienteTxt.setToolTipText("Ingrese el nombre del paciente");
 
         cedulaPacienteTxt = new JTextField(" ");
@@ -200,7 +202,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
     }
 
-    // Metodo para la accion de botones
+    //Metodo para la accion de botones 
     public void actionPerformed(ActionEvent e) {
 
         //Metodo para insertar un elemento y enviarlo a la base de datos MySQL
@@ -210,13 +212,16 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
        
     }
 
+
+
+
+    
+
     private static void displayRow(String title, ResultSet rs) {
         try {
             System.out.println(title);
             while (rs.next()) {
-                System.out.println(rs.getString("nombre") + " : " + rs.getString("apellido") + " : "
-                        + rs.getString("cedula") + " : " + rs.getString("edad") + " : " + rs.getString("transtorno")
-                        + " : " + rs.getString("sexo"));
+                System.out.println(rs.getString("nombre") + " : "+ rs.getString("apellido") + " : "+  rs.getString("cedula") + " : " + rs.getString("edad") + " : " + rs.getString("transtorno") + " : " + rs.getString("sexo"));
                 System.out.println();
             }
         } catch (Exception e) {
@@ -224,6 +229,14 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         }
     }
 
+    
+
+            // Fin boton registrar
+
+       
+        
+
+   
     private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
@@ -235,6 +248,10 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         this.repaint();
     }
 
+
+
 }
+
+
 
 // Fin Clase principal
