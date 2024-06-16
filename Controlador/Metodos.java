@@ -9,9 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSetMetaData;
 
 import Vista.AcercaNosotros;
 import Vista.LoginAdmin;
@@ -189,6 +191,58 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
         }
 
+    }
+
+    public void mostrarDatosEnTabla() {
+        Connection con = null;
+        ResultSet rs = null;
+        String[] encabezado = { "Nombre","Apellido", "Cédula", "Edad", "Sexo", "Transtorno" };
+    
+        String SQL = "SELECT * FROM pacientes";
+    
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true", "root", "Proverbios18.22");
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+    
+            // Obtener metadata de la consulta
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+    
+            // Obtener nombres de las columnas
+            String[] columnNames = new String[columnCount];
+            for (int i = 1; i <= columnCount; i++) {
+                columnNames[i - 1] = metaData.getColumnName(i);
+            }
+    
+            // Crear modelo de tabla y agregar filas
+            DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+            while (rs.next()) {
+                Object[] row = new Object[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    row[i - 1] = rs.getObject(i);
+                }
+                tableModel.addRow(row);
+            }
+
+            tableModel = new DefaultTableModel(encabezado, 10000); 
+    
+            // Asignar modelo de tabla al JTable existente
+            ventanaAdministrador.tablaPacientes.setModel(tableModel);
+           
+    
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
+        } finally {
+            // Cerrar ResultSet y Connection
+            try {
+                if (rs != null) rs.close();
+                if (con != null) con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void EliminarElementos() {
