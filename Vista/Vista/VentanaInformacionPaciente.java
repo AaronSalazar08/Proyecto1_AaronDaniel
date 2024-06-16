@@ -33,21 +33,21 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
     public static Metodos metodos;
 
-     // Declarando constantes 
+    // Declarando constantes
     public JPanel panelInfoPaciente = new JPanel();
     public JButton botonRegistrar, botonCancelar;
     public JLabel labelNombrePaciente, labelCedula, labelEdad, labelTranstorno, labelSexo, labelTitulo, labelApellido;
     public static JTextField nombrePacienteTxt, apellidoPacienteTxt;
     public static JTextField cedulaPacienteTxt;
     public static JTextField EdadPacienteTxt;
-    public static JComboBox comboTranstorno; //JComboBox para poder seleccionar los tipos de transtorno 
-    public static JRadioButton botonMasculino, botonFemenino; //Botones para seleccionar el tipo de sexo
+    public static JComboBox comboTranstorno; // JComboBox para poder seleccionar los tipos de transtorno
+    public static JRadioButton botonMasculino, botonFemenino; // Botones para seleccionar el tipo de sexo
     Font fuenteBoton = new Font("Century Schoolbook", Font.PLAIN, 20);
     private ImageIcon imagen;
     private ImageIcon icono;
 
     public VentanaInformacionPaciente() {
-        //Definiendo caracteristicas al JPanel
+        // Definiendo caracteristicas al JPanel
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Registro de Paciente");
         this.setLocationRelativeTo(null);
@@ -62,24 +62,22 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
     }
 
-
     @SuppressWarnings("unchecked")
     public void Elementos() {
-        //Inicializando constantes para el JPanel
+        // Inicializando constantes para el JPanel
 
         // JButton
 
         botonRegistrar = new JButton("");
         botonRegistrar.setBounds(320, 395, 50, 40);
         botonRegistrar.setForeground(Color.BLACK);
-        botonRegistrar.setBackground(new Color( 255, 255, 255));
+        botonRegistrar.setBackground(new Color(255, 255, 255));
         botonRegistrar.setFont(fuenteBoton);
         botonRegistrar.addActionListener(this);
         botonRegistrar.setToolTipText("Presione el boton para registrar al paciente");
         this.PintarB(this.botonRegistrar, "Vista\\Imagenes\\guardarA.png");
         botonRegistrar.setBorderPainted(false);
         botonRegistrar.setOpaque(false);
-
 
         botonCancelar = new JButton();
         botonCancelar.setBounds(20, 405, 55, 30);
@@ -135,11 +133,11 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         // JTexfield
 
         nombrePacienteTxt = new JTextField(" ");
-        nombrePacienteTxt.setBounds(240,60, 95, 20);
+        nombrePacienteTxt.setBounds(240, 60, 95, 20);
         nombrePacienteTxt.setToolTipText("Ingrese el nombre del paciente");
 
         apellidoPacienteTxt = new JTextField(" ");
-        apellidoPacienteTxt.setBounds(240,125, 95, 20);
+        apellidoPacienteTxt.setBounds(240, 125, 95, 20);
         apellidoPacienteTxt.setToolTipText("Ingrese el nombre del paciente");
 
         cedulaPacienteTxt = new JTextField(" ");
@@ -202,88 +200,19 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
     }
 
-    //Metodo para la accion de botones 
+    // Metodo para la accion de botones
     public void actionPerformed(ActionEvent e) {
 
-        //Creacion de instancia para volver al menú principal 
-          String entradaNombrePaciente = nombrePacienteTxt.getText().trim();
-          String entradaApellido = apellidoPacienteTxt.getText().trim();
-        String entradaCedulaPaciente = cedulaPacienteTxt.getText().trim();
-        String entradaEdadPaciente = EdadPacienteTxt.getText().trim();
-        String transtornoSeleccionado = String.valueOf(comboTranstorno.getSelectedItem());
-        boolean masculinoSeleccionado = botonMasculino.isSelected();
-        boolean femeninoSeleccionado = botonFemenino.isSelected();
-        Connection con = null;
-       
-        ResultSet rs = null;
-        int exito = 0;
-
-        // Validate input fields
-        if (entradaNombrePaciente.isEmpty() ||entradaApellido.isEmpty()|| entradaEdadPaciente.isEmpty() || entradaCedulaPaciente.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Verifique que los campos a rellenar no estén vacíos");
-            return;
-        }
-
-        // Convert age to integer
-        int edadPaciente;
-        try {
-            edadPaciente = Integer.parseInt(entradaEdadPaciente);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la edad");
-            EdadPacienteTxt.setText("");
-            return;
-        }
-
-        // Validate gender selection
-        if (!masculinoSeleccionado && !femeninoSeleccionado) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione el sexo del paciente.");
-            return;
-        }
-
-        // Determine patient's sex
-        String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
-
-        // Prepare SQL statement for inserting record
-        String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('" + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
-
-        // Establish connection with database
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true", "root", "091623");
-             Statement stmt = conn.createStatement()) {
-
-            // Execute SQL statement
-             exito = stmt.executeUpdate(SQL);
-
-            // Process the result of the query
-            if (exito != 0) {
-                JOptionPane.showMessageDialog(null, "Registrado exitosamente");
-
-                // Clear input fields
-                nombrePacienteTxt.setText("");
-                apellidoPacienteTxt.setText("");
-                cedulaPacienteTxt.setText("");
-                EdadPacienteTxt.setText("");
-                comboTranstorno.setSelectedIndex(0);
-                botonMasculino.setSelected(false);
-                botonFemenino.setSelected(false);
-
-                // (Optional) Display newly created record
-                // displayRow("paciente", stmt.executeQuery("SELECT * FROM paciente"));
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al registrar el paciente");
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
-        }
+        metodos.InsertarElementos();
     }
 
     private static void displayRow(String title, ResultSet rs) {
         try {
             System.out.println(title);
             while (rs.next()) {
-                System.out.println(rs.getString("nombre") + " : "+ rs.getString("apellido") + " : "+  rs.getString("cedula") + " : " + rs.getString("edad") + " : " + rs.getString("transtorno") + " : " + rs.getString("sexo"));
+                System.out.println(rs.getString("nombre") + " : " + rs.getString("apellido") + " : "
+                        + rs.getString("cedula") + " : " + rs.getString("edad") + " : " + rs.getString("transtorno")
+                        + " : " + rs.getString("sexo"));
                 System.out.println();
             }
         } catch (Exception e) {
@@ -291,14 +220,6 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         }
     }
 
-    
-
-            // Fin boton registrar
-
-       
-        
-
-   
     private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
@@ -310,10 +231,6 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         this.repaint();
     }
 
-
-
 }
-
-
 
 // Fin Clase principal
