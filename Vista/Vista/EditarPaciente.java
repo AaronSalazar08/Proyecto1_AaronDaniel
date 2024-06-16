@@ -207,7 +207,7 @@ public class EditarPaciente extends JFrame implements ActionListener {
 
         //Metodo para insertar un elemento y enviarlo a la base de datos MySQL
         if(e.getSource() == botonRegistrar){
-            metodos.InsertarElementos();
+            metodos.actualizarElementos();
         }
 
         if(e.getSource() == botonCancelar){

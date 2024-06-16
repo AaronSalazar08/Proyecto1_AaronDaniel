@@ -211,6 +211,152 @@ public class Metodos {
 
     }
 
+    public void actualizarElementos() {
+        // Crear instancia para volver al menú principal
+        String entradaNombrePaciente = ventanaRegistroPaciente.nombrePacienteTxt.getText().trim();
+        String entradaApellido = ventanaRegistroPaciente.apellidoPacienteTxt.getText().trim();
+        String entradaCedulaPaciente = ventanaRegistroPaciente.cedulaPacienteTxt.getText().trim();
+        String entradaEdadPaciente = ventanaRegistroPaciente.EdadPacienteTxt.getText().trim();
+        String transtornoSeleccionado = String.valueOf(ventanaRegistroPaciente.comboTranstorno.getSelectedItem());
+        boolean masculinoSeleccionado = ventanaRegistroPaciente.botonMasculino.isSelected();
+        boolean femeninoSeleccionado = ventanaRegistroPaciente.botonFemenino.isSelected();
+        Connection con = null;
+        int exito = 0;
+    
+        // Validar campos de entrada
+        if (entradaNombrePaciente.isEmpty() || entradaApellido.isEmpty() || entradaEdadPaciente.isEmpty() || entradaCedulaPaciente.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Verifique que los campos a rellenar no estén vacíos");
+            return;
+        }
+    
+        // Convertir edad a entero
+        int edadPaciente;
+        try {
+            edadPaciente = Integer.parseInt(entradaEdadPaciente);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la edad");
+            ventanaRegistroPaciente.EdadPacienteTxt.setText("");
+            return;
+        }
+    
+        // Validar selección de género
+        if (!masculinoSeleccionado && !femeninoSeleccionado) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione el sexo del paciente.");
+            return;
+        }
+    
+        // Determinar el sexo del paciente
+        String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
+    
+        // Preparar la consulta SQL para actualizar el registro
+        String SQL = "UPDATE pacientes SET nombre = ?, apellido = ?, edad = ?, transtorno = ?, sexo = ? WHERE cedula = ?";
+    
+        // Establecer la conexión con la base de datos
+        try {
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
+            PreparedStatement pstmt = con.prepareStatement(SQL);
+            
+            // Asignar valores a los parámetros de la consulta
+            pstmt.setString(1, entradaNombrePaciente);
+            pstmt.setString(2, entradaApellido);
+            pstmt.setInt(3, edadPaciente);
+            pstmt.setString(4, transtornoSeleccionado);
+            pstmt.setString(5, sexoPaciente);
+            pstmt.setString(6, entradaCedulaPaciente);
+    
+            // Ejecutar la consulta SQL
+            exito = pstmt.executeUpdate();
+    
+            // Procesar el resultado de la consulta
+            if (exito != 0) {
+                JOptionPane.showMessageDialog(null, "Actualizado exitosamente");
+    
+                // Limpiar campos de entrada
+                ventanaRegistroPaciente.nombrePacienteTxt.setText("");
+                ventanaRegistroPaciente.apellidoPacienteTxt.setText("");
+                ventanaRegistroPaciente.cedulaPacienteTxt.setText("");
+                ventanaRegistroPaciente.EdadPacienteTxt.setText("");
+                ventanaRegistroPaciente.comboTranstorno.setSelectedIndex(0);
+                ventanaRegistroPaciente.botonMasculino.setSelected(false);
+                ventanaRegistroPaciente.botonFemenino.setSelected(false);
+    
+                ventanaRegistroPaciente.setVisible(false);
+                ventanaPrincipal.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar el paciente");
+            }
+    
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
+        } finally {
+            // Cerrar ResultSet y Connection
+            try {
+                if (con != null) con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    public void mostrarDatosEnTabla() {
+        Connection con = null;
+        ResultSet rs = null;
+
+        String SQL = "SELECT * FROM pacientes";
+
+        try {
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+
+            // Obtener metadata de la consulta
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            // Obtener nombres de las columnas
+            String[] columnNames = new String[columnCount];
+            for (int i = 1; i <= columnCount; i++) {
+                columnNames[i - 1] = metaData.getColumnName(i);
+            }
+
+
+            ventanaAdministrador.model.setColumnIdentifiers(columnNames);
+            ventanaAdministrador.model.setRowCount(0);
+
+            while (rs.next()) {
+                Object[] rowData = new Object[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    rowData[i - 1] = rs.getObject(i);
+                }
+                ventanaAdministrador.model.addRow(rowData);
+            }
+
+            ventanaAdministrador.tablaPacientes.revalidate();
+            ventanaAdministrador.tablaPacientes.repaint();
+
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
+        } finally {
+            // Cerrar ResultSet y Connection
+            try {
+                if (rs != null)
+                    rs.close();
+                if (con != null)
+                    con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public void EliminarElementos() {
 
         String cedula = ventanaAdministrador.cedula_txt.getText().trim();

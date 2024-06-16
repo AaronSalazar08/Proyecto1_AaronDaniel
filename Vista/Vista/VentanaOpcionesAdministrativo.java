@@ -26,9 +26,8 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
     public JButton botonEliminar, botonVolver, botonEditar, botonBuscar, botonRefrescar;
     public JLabel cedulaLabel;
     public JTextField cedula_txt;
-    
 
-    private String[] cabecera = { "Cédula", "Nombre","Apellido", "Sexo", "Edad", "Transtorno" };
+    private String[] cabecera = { "Cédula", "Nombre", "Apellido", "Sexo", "Edad", "Transtorno" };
 
     public DefaultTableModel model;
     public JTable tablaPacientes;
@@ -47,7 +46,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         setLocationRelativeTo(null);
         this.getContentPane().add(panelVentanaOpcionesAdministrativo);
         panelVentanaOpcionesAdministrativo.setBackground(new Color(255, 255, 255));
-        panelVentanaOpcionesAdministrativo.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171 ), 4));
+        panelVentanaOpcionesAdministrativo.setBorder(BorderFactory.createLineBorder(new Color(171, 171, 171), 4));
         panelVentanaOpcionesAdministrativo.setLayout(null);
 
         Elementos();// llamada al metodo de elementos para agregar los elementos del panel a la
@@ -80,8 +79,8 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         botonEliminar.setBackground(new Color(53, 89, 252));
         botonEliminar.setForeground(new Color(255, 255, 255));
         botonEliminar.addActionListener(this);
-        //botonEliminar.setOpaque(false);
-        //botonEliminar.setContentAreaFilled(false);
+        // botonEliminar.setOpaque(false);
+        // botonEliminar.setContentAreaFilled(false);
         botonEliminar.setBorderPainted(false);
 
         ImageIcon iconoEliminar = new ImageIcon("Vista/Imagenes/eliminar.png");
@@ -117,15 +116,13 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         // botonEditar.setContentAreaFilled(false);
         botonEditar.setBorderPainted(false);
 
-       
-          ImageIcon iconoEditar = new ImageIcon("Vista/Imagenes/editar.png");
-          botonEditar.setToolTipText("Editar Paciente");
-          if (iconoEditar != null && iconoEditar.getImage() != null) {
-          Image imagenEditarAjustada = iconoEditar.getImage().getScaledInstance(40, 30,
-          Image.SCALE_SMOOTH);
-          botonEditar.setIcon(new ImageIcon(imagenEditarAjustada));
-          }
-         
+        ImageIcon iconoEditar = new ImageIcon("Vista/Imagenes/editar.png");
+        botonEditar.setToolTipText("Editar Paciente");
+        if (iconoEditar != null && iconoEditar.getImage() != null) {
+            Image imagenEditarAjustada = iconoEditar.getImage().getScaledInstance(40, 30,
+                    Image.SCALE_SMOOTH);
+            botonEditar.setIcon(new ImageIcon(imagenEditarAjustada));
+        }
 
         // Boton para volver al menu principal
         botonVolver = new JButton("Volver");
@@ -135,38 +132,38 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         botonVolver.addActionListener(this);
         // botonVolver.setOpaque(false);
         // botonVolver.setContentAreaFilled(false);
-       botonVolver.setBorderPainted(false);
+        botonVolver.setBorderPainted(false);
 
-        
-         ImageIcon iconoVolver = new ImageIcon("Vista/Imagenes/volver (1).png");
-         botonVolver.setToolTipText("Atrás");
-         if (iconoVolver != null && iconoVolver.getImage() != null) {
-         Image imagenVolverAjustada = iconoVolver.getImage().getScaledInstance(55, 40,
-         Image.SCALE_SMOOTH);
-         botonVolver.setIcon(new ImageIcon(imagenVolverAjustada));
-         }
+        ImageIcon iconoVolver = new ImageIcon("Vista/Imagenes/volver (1).png");
+        botonVolver.setToolTipText("Atrás");
+        if (iconoVolver != null && iconoVolver.getImage() != null) {
+            Image imagenVolverAjustada = iconoVolver.getImage().getScaledInstance(55, 40,
+                    Image.SCALE_SMOOTH);
+            botonVolver.setIcon(new ImageIcon(imagenVolverAjustada));
+        }
 
-         // Boton para volver al menu principal
-         botonRefrescar = new JButton("Refrescar");
-         botonRefrescar.setBounds(590, 470, 150, 30);
-         botonRefrescar.setForeground(new Color(255, 255, 255));
-         botonRefrescar.setBackground(new Color(53, 89, 252));
-         botonRefrescar.addActionListener(this);
+        // Boton para volver al menu principal
+        botonRefrescar = new JButton("Refrescar");
+        botonRefrescar.setBounds(590, 470, 150, 30);
+        botonRefrescar.setForeground(new Color(255, 255, 255));
+        botonRefrescar.setBackground(new Color(53, 89, 252));
+        botonRefrescar.addActionListener(this);
         // botonRefrescar.setOpaque(false);
         // botonRefrescar.setContentAreaFilled(false);
-       botonRefrescar.setBorderPainted(false);
+        botonRefrescar.setBorderPainted(false);
 
-        
-         ImageIcon iconoRefrescar = new ImageIcon("Vista/Imagenes/refrescar (1).png");
-         botonRefrescar.setToolTipText("Refrescar Tabla");
-         if (iconoVolver != null && iconoRefrescar.getImage() != null) {
-         Image imagenRefrescarAjustada = iconoRefrescar.getImage().getScaledInstance(40, 30,
-         Image.SCALE_SMOOTH);
-         botonRefrescar.setIcon(new ImageIcon(imagenRefrescarAjustada));
-         }
-         
+        ImageIcon iconoRefrescar = new ImageIcon("Vista/Imagenes/refrescar (1).png");
+        botonRefrescar.setToolTipText("Refrescar Tabla");
+        if (iconoVolver != null && iconoRefrescar.getImage() != null) {
+            Image imagenRefrescarAjustada = iconoRefrescar.getImage().getScaledInstance(40, 30,
+                    Image.SCALE_SMOOTH);
+            botonRefrescar.setIcon(new ImageIcon(imagenRefrescarAjustada));
+        }
 
         // JSCROLLPANE
+        model = new DefaultTableModel();
+        tablaPacientes = new JTable(model);
+        scroll = new JScrollPane(tablaPacientes);
         scroll.setBounds(40, 100, 700, 350);
 
         // AGREGAR CONSTANTES AL PANEL
@@ -199,34 +196,28 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
         if (e.getSource() == botonVolver) {
 
-           metodos.Administrador_Principal();
+            metodos.Administrador_Principal();
 
         }
-        if(e.getSource() == botonRefrescar){
+        if (e.getSource() == botonRefrescar) {
 
-            
-
-
-
-
-            
+            metodos.mostrarDatosEnTabla();
         }
-        if(e.getSource() == botonEditar){
+        if (e.getSource() == botonEditar) {
 
             metodos.Administrador_Editar();
         }
 
         if (e.getSource() == botonEliminar) {
 
-           
-                int confirmacion = JOptionPane.showConfirmDialog(null,
-                        "¿Estás seguro de que quieres eliminar al paciente seleccionado? ",
-                        "Confirmar",
-                        JOptionPane.YES_NO_OPTION);
+            int confirmacion = JOptionPane.showConfirmDialog(null,
+                    "¿Estás seguro de que quieres eliminar al paciente seleccionado? ",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION);
 
-                if (confirmacion == JOptionPane.YES_OPTION) {
+            if (confirmacion == JOptionPane.YES_OPTION) {
 
-                    metodos.EliminarElementos();
+                metodos.EliminarElementos();
 
             }
 
