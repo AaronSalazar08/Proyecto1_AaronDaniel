@@ -5,17 +5,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSetMetaData;
-
 import Vista.AcercaNosotros;
 import Vista.EditarPaciente;
 import Vista.LoginAdmin;
@@ -43,49 +35,51 @@ public class Metodos {
         this.ventanaEditar = ventanaEditar;
     }
 
- 
     public void Login_Principal() {
 
         String entradaUsuario = ventanaLogin.usuario_txt.getText().trim();
         char[] contrasena = ventanaLogin.clave_psw.getPassword();
         String contrasenaString = new String(contrasena);
-    Connection con = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
 
-    String SQL = "SELECT * FROM administrador WHERE Usuario = ? AND Clave = ?";
+        String SQL = "SELECT * FROM administrador WHERE Usuario = ? AND Clave = ?";
 
-    try {
-        con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                "root", "Proverbios18.22");
-        pst = con.prepareStatement(SQL);
-        pst.setString(1, entradaUsuario);
-        pst.setString(2, contrasenaString);
-        rs = pst.executeQuery();
-
-        if (rs.next()) {
-            // Si las credenciales son correctas
-            JOptionPane.showMessageDialog(null, "Bienvenido " + entradaUsuario);
-            ventanaLogin.setVisible(false);
-            ventanaPrincipal.setVisible(true);
-        } else {
-            // Si las credenciales son incorrectas
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas");
-        }
-
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
-        e.printStackTrace();
-    } finally {
         try {
-            if (rs != null) rs.close();
-            if (pst != null) pst.close();
-            if (con != null) con.close();
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
+            pst = con.prepareStatement(SQL);
+            pst.setString(1, entradaUsuario);
+            pst.setString(2, contrasenaString);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                // Si las credenciales son correctas
+                JOptionPane.showMessageDialog(null, "Bienvenido " + entradaUsuario);
+                ventanaLogin.setVisible(false);
+                ventanaPrincipal.setVisible(true);
+            } else {
+                // Si las credenciales son incorrectas
+                JOptionPane.showMessageDialog(null, "Credenciales incorrectas");
+            }
+
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+                if (pst != null)
+                    pst.close();
+                if (con != null)
+                    con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-    }
     }
 
     public void Principal_Registro() {
@@ -128,7 +122,7 @@ public class Metodos {
 
         ventanaAdministrador.setVisible(false);
         ventanaEditar.setVisible(true);
-        
+
     }
 
     public void Editar_Administrador() {
@@ -203,9 +197,9 @@ public class Metodos {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
                     "root", "Proverbios18.22");
-                Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement();
             // Execute SQL statement
-             exito = stmt.executeUpdate(SQL);
+            exito = stmt.executeUpdate(SQL);
 
             // Process the result of the query
             if (exito != 0) {
@@ -303,14 +297,14 @@ public class Metodos {
                                                                                   // para ingresar la cédula a buscar
         Connection con = null;
         ResultSet rs = null;
-    
+
         if (cedulaBusqueda.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese una cédula para buscar.");
             return;
         }
-    
+
         String SQL = "SELECT * FROM pacientes WHERE cedula = ?";
-    
+
         try {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
@@ -318,7 +312,7 @@ public class Metodos {
             PreparedStatement pstmt = con.prepareStatement(SQL);
             pstmt.setString(1, cedulaBusqueda);
             rs = pstmt.executeQuery();
-    
+
             if (rs.next()) {
                 // Poblar los campos del formulario con los datos recuperados
                 ventanaEditar.nombrePacienteTxt.setText(rs.getString("nombre"));
@@ -326,24 +320,24 @@ public class Metodos {
                 ventanaEditar.cedulaPacienteTxt.setText(rs.getString("cedula"));
                 ventanaEditar.EdadPacienteTxt.setText(rs.getString("edad"));
                 ventanaEditar.comboTranstorno.setSelectedItem(rs.getString("transtorno"));
-    
+
                 String sexo = rs.getString("sexo");
                 if (sexo.equals("Masculino")) {
                     ventanaEditar.botonMasculino.setSelected(true);
                 } else if (sexo.equals("Femenino")) {
                     ventanaEditar.botonFemenino.setSelected(true);
                 }
-    
+
                 // Mostrar mensaje de éxito
                 JOptionPane.showMessageDialog(null, "Paciente encontrado y datos desplegados.");
                 ventanaEditar.setVisible(true);
                 ventanaAdministrador.setVisible(false);
-                
+
             } else {
                 // Mostrar mensaje de error si no se encuentra el paciente
                 JOptionPane.showMessageDialog(null, "No se encontró ningún paciente con la cédula proporcionada.");
             }
-    
+
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
@@ -359,7 +353,6 @@ public class Metodos {
             }
         }
     }
-    
 
     public void actualizarElementos() throws SQLException {
         // Obtener valores actuales de los campos de la ventanaEditar
@@ -375,14 +368,14 @@ public class Metodos {
         Statement stmt = null;
         ResultSet rs = null;
         int exito = 0;
-    
+
         // Validar campos de entrada
         if (entradaNombrePaciente.isEmpty() || entradaApellido.isEmpty() || entradaEdadPaciente.isEmpty()
                 || entradaCedulaPaciente.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Verifique que los campos a rellenar no estén vacíos");
             return;
         }
-    
+
         // Convertir edad a entero
         int edadPaciente;
         try {
@@ -392,18 +385,20 @@ public class Metodos {
             ventanaEditar.EdadPacienteTxt.setText("");
             return;
         }
-    
+
         // Validar selección de género
         if (!masculinoSeleccionado && !femeninoSeleccionado) {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione el sexo del paciente.");
             return;
         }
-    
+
         // Determinar el sexo del paciente
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
-    
+
         // Preparar la consulta SQL para actualizar el registro
-        String SQL = "UPDATE pacientes SET Nombre='" + entradaNombrePaciente + "', Apellido='" + entradaApellido + "', Sexo='" + sexoPaciente + "', Edad=" + entradaEdadPaciente + ", Transtorno='" + transtornoSeleccionado + "' WHERE Cedula='" + entradaCedulaAdministrador + "'";
+        String SQL = "UPDATE pacientes SET Nombre='" + entradaNombrePaciente + "', Apellido='" + entradaApellido
+                + "', Sexo='" + sexoPaciente + "', Edad=" + entradaEdadPaciente + ", Transtorno='"
+                + transtornoSeleccionado + "' WHERE Cedula='" + entradaCedulaAdministrador + "'";
 
         // Establecer la conexión con la base de datos
         try {
@@ -412,13 +407,13 @@ public class Metodos {
                     "root", "Proverbios18.22");
             stmt = con.createStatement();
             exito = stmt.executeUpdate(SQL);
-    
+
             // Asignar valores a los parámetros de la consulta
-    
+
             // Procesar el resultado de la consulta
             if (exito != 0) {
                 JOptionPane.showMessageDialog(null, "Actualizado exitosamente");
-    
+
                 ventanaEditar.setVisible(false);
                 ventanaAdministrador.setVisible(true);
                 // Limpiar campos de entrada
@@ -429,12 +424,11 @@ public class Metodos {
                 ventanaEditar.comboTranstorno.setSelectedIndex(0);
                 ventanaEditar.botonMasculino.setSelected(false);
                 ventanaEditar.botonFemenino.setSelected(false);
-    
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar el paciente");
             }
-    
+
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
@@ -448,8 +442,7 @@ public class Metodos {
             }
         }
     }
-    
-    
+
     public void mostrarDatosEnTabla() {
         Connection con = null;
         ResultSet rs = null;
@@ -473,7 +466,6 @@ public class Metodos {
                 columnNames[i - 1] = metaData.getColumnName(i);
             }
 
-
             ventanaAdministrador.model.setColumnIdentifiers(columnNames);
             ventanaAdministrador.model.setRowCount(0);
 
@@ -488,8 +480,6 @@ public class Metodos {
 
             ventanaAdministrador.tablaPacientes.revalidate();
             ventanaAdministrador.tablaPacientes.repaint();
-
-
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -525,17 +515,14 @@ public class Metodos {
                     "Proverbios18.22");
             con.setAutoCommit(true);
 
-           
-          
-
             stmt = con.createStatement();
             int exito = stmt.executeUpdate(sqlEliminar);
-            System.out.println("valor: " + exito);
+            // System.out.println("valor: " + exito);
             if (exito > 0) {
 
-                JOptionPane.showMessageDialog(null, "Se eliminó correctamente el Paciente");
+                JOptionPane.showMessageDialog(null, "El paciente se eliminó correctamente");
             } else
-                JOptionPane.showMessageDialog(null,"No se encontró la cedula a eliminar");
+                JOptionPane.showMessageDialog(null, "No se encontró la cedula a eliminar");
 
         } catch (Exception e) {
             System.out.print("Se ejecut  la excepci n....");

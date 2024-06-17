@@ -27,8 +27,6 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
     public JLabel cedulaLabel;
     public JTextField cedula_txt;
 
-    private String[] cabecera = { "Cédula", "Nombre", "Apellido", "Sexo", "Edad", "Transtorno" };
-
     public DefaultTableModel model;
     public JTable tablaPacientes;
     public JScrollPane scroll;
