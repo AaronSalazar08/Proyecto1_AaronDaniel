@@ -271,7 +271,7 @@ public class Metodos {
     }
     
 
-    public void actualizarElementos() {
+    public void actualizarElementos() throws SQLException {
         // Obtener valores actuales de los campos de la ventanaEditar
         String entradaNombrePaciente = ventanaEditar.nombrePacienteTxt.getText().trim();
         String entradaApellido = ventanaEditar.apellidoPacienteTxt.getText().trim();
@@ -280,7 +280,10 @@ public class Metodos {
         String transtornoSeleccionado = String.valueOf(ventanaEditar.comboTranstorno.getSelectedItem());
         boolean masculinoSeleccionado = ventanaEditar.botonMasculino.isSelected();
         boolean femeninoSeleccionado = ventanaEditar.botonFemenino.isSelected();
+        String entradaCedulaAdministrador = ventanaAdministrador.cedula_txt.getText().trim();
         Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         int exito = 0;
     
         // Validar campos de entrada
@@ -309,25 +312,17 @@ public class Metodos {
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
     
         // Preparar la consulta SQL para actualizar el registro
-        String SQL = "UPDATE pacientes SET nombre = ?, apellido = ?, edad = ?, transtorno = ?, sexo = ? WHERE cedula = ?";
-    
+        String SQL = "UPDATE pacientes SET Nombre='" + entradaNombrePaciente + "', Apellido='" + entradaApellido + "', Sexo='" + sexoPaciente + "', Edad=" + entradaEdadPaciente + ", Transtorno='" + transtornoSeleccionado + "' WHERE Cedula='" + entradaCedulaAdministrador + "'";
+
         // Establecer la conexión con la base de datos
         try {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
                     "root", "Proverbios18.22");
-            PreparedStatement pstmt = con.prepareStatement(SQL);
+            stmt = con.createStatement();
+            exito = stmt.executeUpdate(SQL);
     
             // Asignar valores a los parámetros de la consulta
-            pstmt.setString(1, entradaNombrePaciente);
-            pstmt.setString(2, entradaApellido);
-            pstmt.setInt(3, edadPaciente);
-            pstmt.setString(4, transtornoSeleccionado);
-            pstmt.setString(5, sexoPaciente);
-            pstmt.setString(6, entradaCedulaPaciente);
-    
-            // Ejecutar la consulta SQL
-            exito = pstmt.executeUpdate();
     
             // Procesar el resultado de la consulta
             if (exito != 0) {
