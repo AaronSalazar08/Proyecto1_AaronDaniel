@@ -249,13 +249,13 @@ public class Metodos {
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
     
         // Preparar la consulta SQL para actualizar el registro
-        String SQL = "UPDATE pacientes SET nombre = ?, apellido = ?, edad = ?, transtorno = ?, sexo = ? WHERE cedula = ?";
+        String SQL = "UPDATE paciente SET nombre = ?, apellido = ?, edad = ?, transtorno = ?, sexo = ? WHERE cedula = ?";
     
         // Establecer la conexión con la base de datos
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "Proverbios18.22");
+                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "091623");
             PreparedStatement pstmt = con.prepareStatement(SQL);
             
             // Asignar valores a los parámetros de la consulta
@@ -305,12 +305,12 @@ public class Metodos {
         Connection con = null;
         ResultSet rs = null;
 
-        String SQL = "SELECT * FROM pacientes";
+        String SQL = "SELECT * FROM paciente";
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "Proverbios18.22");
+                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "091623");
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
@@ -357,6 +357,70 @@ public class Metodos {
         }
     }
 
+
+    public void buscarPorCedula() {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement pst = null;
+    
+        String SQL = "SELECT * FROM paciente WHERE cedula = ?";
+    
+        try {
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "091623");
+            pst = con.prepareStatement(SQL);
+            //pst.setString(1, ventanaAdministrador);
+            rs = pst.executeQuery();
+    
+            // Obtener metadata de la consulta
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+    
+            // Obtener nombres de las columnas
+            String[] columnNames = new String[columnCount];
+            for (int i = 1; i <= columnCount; i++) {
+                columnNames[i - 1] = metaData.getColumnName(i);
+            }
+    
+            ventanaAdministrador.model.setColumnIdentifiers(columnNames);
+            ventanaAdministrador.model.setRowCount(0);
+    
+            while (rs.next()) {
+                Object[] rowData = new Object[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    rowData[i - 1] = rs.getObject(i);
+                }
+                ventanaAdministrador.model.addRow(rowData);
+            }
+    
+            ventanaAdministrador.tablaPacientes.revalidate();
+            ventanaAdministrador.tablaPacientes.repaint();
+    
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos: " + ex.getMessage());
+        } finally {
+            // Cerrar ResultSet y Connection
+            try {
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (con != null) con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
+        }
+
+        
+            
+        }
+
+        
+
+
+
+
     public void EliminarElementos() {
 
         String cedula = ventanaAdministrador.cedula_txt.getText().trim();
@@ -373,8 +437,8 @@ public class Metodos {
                     "091623");
             con.setAutoCommit(true);
 
-            String sqlEliminar = "DELETE FROM pacientes where Cedula= cedula;";
-            String sqlMostrar = "SELECT * FROM pacientes;";
+            String sqlEliminar = "DELETE FROM paciente where Cedula = cedula;";
+            String sqlMostrar = "SELECT * FROM paciente;";
 
             stmt = con.createStatement();
             int exito = stmt.executeUpdate(sqlEliminar);
@@ -419,12 +483,19 @@ public class Metodos {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    
+    
     
     }
+   
+
+
 
 
     
     }
+    
 
 
 

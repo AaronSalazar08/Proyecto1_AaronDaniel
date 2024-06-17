@@ -6,8 +6,15 @@ import java.awt.Image;
 import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import com.mysql.jdbc.PreparedStatement;
 
 import Controlador.Metodos;
 import Controlador.Principal;
@@ -217,12 +224,76 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
             if (confirmacion == JOptionPane.YES_OPTION) {
 
-                metodos.EliminarElementos();
+              
+
+              
+        }
+
+
+
+
 
             }
 
-        }
 
-    }
 
-}
+
+
+
+
+
+               }
+               public void segundo (String cedula){
+                Connection con = null;
+                PreparedStatement stmt = null;
+
+                
+
+                
+               try {
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection(
+                        "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                        "root",
+                        "091623");
+                con.setAutoCommit(true);
+    
+                String sql = "DELETE FROM tablaPacientes WHERE cedula = ?";
+                
+                String cedula;
+                stmt = (PreparedStatement) con.prepareStatement(sql);
+                stmt.setString(1, cedula);
+    
+                int filasEliminadas = stmt.executeUpdate();
+                if (filasEliminadas < 0){
+                    System.out.println("exito");
+                }else{
+                    System.out.println("Denegado");
+    
+                }
+
+               } catch (SQLException e) {
+                System.out.println("error");
+
+                
+               }finally{
+                if (stmt != null){
+                    try {
+                        stmt.close();
+                        
+
+
+                    } catch (Exception e) {
+                        System.out.println("error al cerrar");
+                    }
+
+
+                }
+
+
+               }
+               }
+
+            }
+
+        
