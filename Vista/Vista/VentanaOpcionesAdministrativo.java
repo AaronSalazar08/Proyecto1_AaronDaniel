@@ -207,11 +207,12 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
             
             metodos.Administrador_Editar();
-            metodos.buscarPorCedula();
+            metodos.buscarPorCedulaParaEditar();
            
         }
         if(e.getSource() == botonBuscar){
 
+            metodos.buscarPorCedulaParaMostrar();
            
         }
 
