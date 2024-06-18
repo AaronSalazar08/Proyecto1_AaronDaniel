@@ -74,7 +74,7 @@ public class AcercaNosotros extends JFrame implements ActionListener {
         acercaNosotros.setBounds(50, 250, 200, 40);
         acercaNosotros.setFont(fuenteTitulo);
 
-        informacionCentro = new JLabel("<html>Somos un centro de apoyo dedicado al tratamiento de los niños con transtornos mentales.<br>Hemos decidido contribuir a la sociedad con nuestro grano de areana para atender a estas personas, pues han sufrido en los últimos años graves discapacidades en sus alrededores.<br>  <br>Para más información contactenos por medio la mensajeria WhatsApp o vía Teléfono.</html>");
+        informacionCentro = new JLabel("<html>Somos un centro de apoyo dedicado al tratamiento de los niños con transtornos mentales.<br>Hemos decidido contribuir a la sociedad con nuestro grano de arena para atender a estas personas, pues han sufrido en los últimos años graves discapacidades en sus alrededores.<br>  <br>Para más información contactenos por medio la mensajeria WhatsApp o vía Teléfono.</html>");
         informacionCentro.setBounds(50, 250, 580, 200);
         informacionCentro.setFont(fuenteInformacion);
 

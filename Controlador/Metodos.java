@@ -48,8 +48,8 @@ public class Metodos {
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "Proverbios18.22");
+                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "091623");
             pst = con.prepareStatement(SQL);
             pst.setString(1, entradaUsuario);
             pst.setString(2, contrasenaString);
@@ -187,7 +187,7 @@ public class Metodos {
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
 
         // Prepare SQL statement for inserting record
-        String SQL = "INSERT INTO pacientes (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('"
+        String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('"
                 + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente
                 + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
 
@@ -195,8 +195,8 @@ public class Metodos {
         try {
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "Proverbios18.22");
+                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "091623");
             Statement stmt = con.createStatement();
             // Execute SQL statement
             exito = stmt.executeUpdate(SQL);
@@ -242,12 +242,12 @@ public class Metodos {
             return;
         }
 
-        String SQL = "SELECT * FROM pacientes WHERE cedula = ?";
+        String SQL = "SELECT * FROM paciente WHERE cedula = ?";
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "Proverbios18.22");
+                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "091623");
             PreparedStatement pstmt = con.prepareStatement(SQL);
             pstmt.setString(1, cedulaBusqueda);
             rs = pstmt.executeQuery();
@@ -303,12 +303,12 @@ public class Metodos {
             return;
         }
 
-        String SQL = "SELECT * FROM pacientes WHERE cedula = ?";
+        String SQL = "SELECT * FROM paciente WHERE cedula = ?";
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "Proverbios18.22");
+                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "091623");
             PreparedStatement pstmt = con.prepareStatement(SQL);
             pstmt.setString(1, cedulaBusqueda);
             rs = pstmt.executeQuery();
@@ -396,11 +396,11 @@ public class Metodos {
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
 
         // Preparar la consulta SQL para actualizar el registro
-        String SQL = "UPDATE pacientes SET Nombre='" + entradaNombrePaciente + "', Apellido='" + entradaApellido
+        String SQL = "UPDATE paciente SET Nombre='" + entradaNombrePaciente + "', Apellido='" + entradaApellido
                 + "', Sexo='" + sexoPaciente + "', Edad=" + entradaEdadPaciente + ", Transtorno='"
                 + transtornoSeleccionado + "' WHERE Cedula='" + entradaCedulaAdministrador + "'";
 
-        String SQL = "UPDATE paciente SET nombre = ?, apellido = ?, edad = ?, transtorno = ?, sexo = ? WHERE cedula = ?";
+      
     
         // Establecer la conexión con la base de datos
         try {
@@ -409,8 +409,8 @@ public class Metodos {
                     "root", "091623");
             PreparedStatement pstmt = con.prepareStatement(SQL);
             
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "Proverbios18.22");
+            con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "091623");
             stmt = con.createStatement();
             exito = stmt.executeUpdate(SQL);
 
@@ -567,75 +567,56 @@ public class Metodos {
 
 
 
-    public void EliminarElementos() {
+        public void EliminarElementos() {
 
-        String cedula = ventanaAdministrador.cedula_txt.getText().trim();
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        String sqlEliminar = "DELETE FROM pacientes where Cedula= '" + cedula + "';";
-
-        try {
-
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root",
-                    "Proverbios18.22");
-            con.setAutoCommit(true);
-
-            String sqlEliminar = "DELETE FROM paciente where Cedula = cedula;";
-            String sqlMostrar = "SELECT * FROM paciente;";
-
-            stmt = con.createStatement();
-            int exito = stmt.executeUpdate(sqlEliminar);
-            // System.out.println("valor: " + exito);
-            if (exito > 0) {
-
-                JOptionPane.showMessageDialog(null, "El paciente se eliminó correctamente");
-            } else
-                JOptionPane.showMessageDialog(null, "No se encontró la cedula a eliminar");
-
-        } catch (Exception e) {
-            System.out.print("Se ejecut  la excepci n....");
-            e.printStackTrace();
-        }
-
-        finally {
-            if (rs != null)
-                try {
-                    rs.close();
-                } catch (Exception e) {
-                }
-            if (stmt != null)
-                try {
-                    stmt.close();
-                } catch (Exception e) {
-                }
-            if (con != null)
-                try {
-                    con.close();
-                } catch (Exception e) {
-                }
-        }
-    }
-
-    private static void displayRow(String title, ResultSet rs) {
-        try {
-            System.out.println(title);
-            while (rs.next()) {
-                System.out.println("Carnet--> " + rs.getString("carnet") + " Nombre--> " + rs.getString("nombre1"));
-                System.out.println();
+            String cedula = ventanaAdministrador.cedula_txt.getText().trim();
+            Connection con = null;
+            Statement stmt = null;
+            ResultSet rs = null;
+    
+            String sqlEliminar = "DELETE FROM paciente where cedula = '" + cedula + "';";
+    
+            try {
+    
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection(
+                        "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                        "root",
+                        "091623");
+                con.setAutoCommit(true);
+    
+                stmt = con.createStatement();
+                int exito = stmt.executeUpdate(sqlEliminar);
+                // System.out.println("valor: " + exito);
+                if (exito > 0) {
+    
+                    JOptionPane.showMessageDialog(null, "El paciente se eliminó correctamente");
+                } else
+                    JOptionPane.showMessageDialog(null, "No se encontró la cedula a eliminar");
+    
+            } catch (Exception e) {
+                System.out.print("Se ejecut  la excepci n....");
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+    
+            finally {
+                if (rs != null)
+                    try {
+                        rs.close();
+                    } catch (Exception e) {
+                    }
+                if (stmt != null)
+                    try {
+                        stmt.close();
+                    } catch (Exception e) {
+                    }
+                if (con != null)
+                    try {
+                        con.close();
+                    } catch (Exception e) {
+                    }
+            }
         }
-
-    
-    
-    
-    }
    
 
 
@@ -647,4 +628,4 @@ public class Metodos {
 
 
 
-}
+

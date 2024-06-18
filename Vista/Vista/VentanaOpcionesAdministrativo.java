@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,10 +21,12 @@ import Modelo.Paciente;
 
 public class VentanaOpcionesAdministrativo extends JFrame implements ActionListener {
 
+    //Metodo para la llamada de los metodos de las constantes mediante una instacia de la clase Metodos
     public void setMetodos(Metodos metodos) {
         this.metodos = metodos;
     }
 
+    //Instancia para la clase 
     public static Metodos metodos;
 
     // Declarando costantes
@@ -84,8 +85,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         botonEliminar.setBackground(new Color(53, 89, 252));
         botonEliminar.setForeground(new Color(255, 255, 255));
         botonEliminar.addActionListener(this);
-        // botonEliminar.setOpaque(false);
-        // botonEliminar.setContentAreaFilled(false);
+       
         botonEliminar.setBorderPainted(false);
 
         ImageIcon iconoEliminar = new ImageIcon("Vista/Imagenes/eliminar.png");
@@ -100,8 +100,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         botonBuscar.setForeground(new Color(255, 255, 255));
         botonBuscar.setBackground(new Color(53, 89, 252));
         botonBuscar.addActionListener(this);
-        // botonBuscar.setOpaque(false);
-        // botonBuscar.setContentAreaFilled(false);
+      
         botonBuscar.setBorderPainted(false);
 
         ImageIcon iconoBuscar = new ImageIcon("Vista/Imagenes/buscar.png");
@@ -117,8 +116,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         botonEditar.setForeground(new Color(255, 255, 255));
         botonEditar.setBackground(new Color(53, 89, 252));
         botonEditar.addActionListener(this);
-        // botonEditar.setOpaque(false);
-        // botonEditar.setContentAreaFilled(false);
+       
         botonEditar.setBorderPainted(false);
 
         ImageIcon iconoEditar = new ImageIcon("Vista/Imagenes/editar.png");
@@ -135,8 +133,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         botonVolver.setForeground(new Color(255, 255, 255));
         botonVolver.setBackground(new Color(53, 89, 252));
         botonVolver.addActionListener(this);
-        // botonVolver.setOpaque(false);
-        // botonVolver.setContentAreaFilled(false);
+        
         botonVolver.setBorderPainted(false);
 
         ImageIcon iconoVolver = new ImageIcon("Vista/Imagenes/volver (1).png");
@@ -147,14 +144,13 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
             botonVolver.setIcon(new ImageIcon(imagenVolverAjustada));
         }
 
-        // Boton para volver al menu principal
+        
         botonRefrescar = new JButton("Refrescar");
         botonRefrescar.setBounds(590, 470, 150, 30);
         botonRefrescar.setForeground(new Color(255, 255, 255));
         botonRefrescar.setBackground(new Color(53, 89, 252));
         botonRefrescar.addActionListener(this);
-        // botonRefrescar.setOpaque(false);
-        // botonRefrescar.setContentAreaFilled(false);
+       
         botonRefrescar.setBorderPainted(false);
 
         ImageIcon iconoRefrescar = new ImageIcon("Vista/Imagenes/refrescar (1).png");
@@ -210,15 +206,14 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         }
         if (e.getSource() == botonEditar) {
 
-            
             metodos.Administrador_Editar();
             metodos.buscarPorCedulaParaEditar();
-           
+
         }
-        if(e.getSource() == botonBuscar){
+        if (e.getSource() == botonBuscar) {
 
             metodos.buscarPorCedulaParaMostrar();
-           
+
         }
 
         if (e.getSource() == botonEliminar) {
@@ -229,77 +224,12 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
                     JOptionPane.YES_NO_OPTION);
 
             if (confirmacion == JOptionPane.YES_OPTION) {
+                metodos.EliminarElementos();
 
-              
+            }
 
-              
         }
 
+    }
 
-
-
-
-            }
-
-
-
-
-
-
-
-
-               }
-               public void segundo (String cedula){
-                Connection con = null;
-                PreparedStatement stmt = null;
-
-                
-
-                
-               try {
-                Class.forName("com.mysql.jdbc.Driver");
-                con = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                        "root",
-                        "091623");
-                con.setAutoCommit(true);
-    
-                String sql = "DELETE FROM tablaPacientes WHERE cedula = ?";
-                
-                String cedula;
-                stmt = (PreparedStatement) con.prepareStatement(sql);
-                stmt.setString(1, cedula);
-    
-                int filasEliminadas = stmt.executeUpdate();
-                if (filasEliminadas < 0){
-                    System.out.println("exito");
-                }else{
-                    System.out.println("Denegado");
-    
-                }
-
-               } catch (SQLException e) {
-                System.out.println("error");
-
-                
-               }finally{
-                if (stmt != null){
-                    try {
-                        stmt.close();
-                        
-
-
-                    } catch (Exception e) {
-                        System.out.println("error al cerrar");
-                    }
-
-
-                }
-
-
-               }
-               }
-
-            }
-
-        
+}

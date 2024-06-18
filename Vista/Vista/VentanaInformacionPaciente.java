@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import java.awt.Font;
+
 import Controlador.Metodos;
 
 import javax.swing.JComboBox;
@@ -27,6 +29,7 @@ import java.awt.Image;
 
 public class VentanaInformacionPaciente extends JFrame implements ActionListener {
 
+    //Metodo para la llamada de los metodos de las constantes mediante una instacia de la clase Metodos
     public void setMetodos(Metodos metodos) {
         this.metodos = metodos;
     }
@@ -35,7 +38,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
      // Declarando constantes 
     public JPanel panelInfoPaciente = new JPanel();
-    public JButton botonRegistrar, botonCancelar;
+    public JButton botonCancelar, botonGuardar;
     public JLabel labelNombrePaciente, labelCedula, labelEdad, labelTranstorno, labelSexo, labelTitulo, labelApellido;
     public static JTextField nombrePacienteTxt, apellidoPacienteTxt;
     public static JTextField cedulaPacienteTxt;
@@ -69,18 +72,21 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
         // JButton
 
-        botonRegistrar = new JButton("");
-        botonRegistrar.setBounds(320, 395, 50, 40);
-        botonRegistrar.setForeground(Color.BLACK);
-        botonRegistrar.setBackground(new Color( 255, 255, 255));
-        botonRegistrar.setFont(fuenteBoton);
-        botonRegistrar.addActionListener(this);
-        botonRegistrar.setToolTipText("Presione el boton para registrar al paciente");
-        this.PintarB(this.botonRegistrar, "Vista\\Imagenes\\guardarA.png");
-        botonRegistrar.setBorderPainted(false);
-        botonRegistrar.setOpaque(false);
+
+        botonGuardar = new JButton("  Guardar");
+        botonGuardar.setBounds(220, 405, 160, 30);
+        botonGuardar.setForeground(Color.WHITE);
+        botonGuardar.addActionListener(this);
+        botonGuardar.setBackground(new Color(53, 89, 252));
+        botonGuardar.setFont(fuenteBoton);
+        ImageIcon iconoRegistro = new ImageIcon("Vista/Imagenes/guardarBlanco.png");
+        Image imagenRegistro = iconoRegistro.getImage();
+        Image imagenEmpleadoAjustada = imagenRegistro.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEmpleadoAjustada = new ImageIcon(imagenEmpleadoAjustada);
+        botonGuardar.setIcon(iconoEmpleadoAjustada);
 
 
+       
         botonCancelar = new JButton();
         botonCancelar.setBounds(20, 405, 55, 30);
         botonCancelar.setForeground(Color.BLACK);
@@ -91,8 +97,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         botonCancelar.setBorderPainted(false);
         botonCancelar.setToolTipText("Atrás");
         this.PintarB(this.botonCancelar, "Vista\\Imagenes\\volverA.png");
-        botonRegistrar.setBorderPainted(false);
-        botonRegistrar.setOpaque(false);
+        
 
         // JLabel
 
@@ -192,7 +197,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         panelInfoPaciente.add(labelCedula);
         panelInfoPaciente.add(labelApellido);
 
-        panelInfoPaciente.add(botonRegistrar);
+        ;
         panelInfoPaciente.add(botonCancelar);
 
         panelInfoPaciente.add(comboTranstorno);
@@ -200,13 +205,14 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         panelInfoPaciente.add(botonMasculino);
         panelInfoPaciente.add(botonFemenino);
 
+        panelInfoPaciente.add(botonGuardar);
     }
 
     //Metodo para la accion de botones 
     public void actionPerformed(ActionEvent e) {
 
         //Metodo para insertar un elemento y enviarlo a la base de datos MySQL
-        if(e.getSource() == botonRegistrar){
+        if(e.getSource() == botonGuardar){
             metodos.InsertarElementos();
         }
 
@@ -234,14 +240,10 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         }
     }
 
-    
-
-            // Fin boton registrar
-
        
         
 
-   
+   //Metodo para agregar imagenes a los botones 
     private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
