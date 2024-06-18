@@ -27,13 +27,16 @@ import java.awt.Image;
 
 public class EditarPaciente extends JFrame implements ActionListener {
 
+    // Metodo para la llamada de los metodos de las constantes mediante una instacia
+    // de la clase Metodos
     public void setMetodos(Metodos metodos) {
         this.metodos = metodos;
     }
 
+    // Instancia para la clase
     public static Metodos metodos;
 
-     // Declarando constantes 
+    // Declarando constantes
     public JPanel panelInfoPaciente = new JPanel();
     public JButton botonRegistrar, botonCancelar;
     public JLabel labelNombrePaciente, labelCedula, labelEdad, labelTranstorno, labelSexo, labelTitulo, labelApellido;
@@ -62,24 +65,22 @@ public class EditarPaciente extends JFrame implements ActionListener {
 
     }
 
-
     @SuppressWarnings("unchecked")
     public void Elementos() {
-        //Inicializando constantes para el JPanel
+        // Inicializando constantes para el JPanel
 
         // JButton
 
         botonRegistrar = new JButton("");
         botonRegistrar.setBounds(320, 395, 50, 40);
         botonRegistrar.setForeground(Color.BLACK);
-        botonRegistrar.setBackground(new Color( 255, 255, 255));
+        botonRegistrar.setBackground(new Color(255, 255, 255));
         botonRegistrar.setFont(fuenteBoton);
         botonRegistrar.addActionListener(this);
         botonRegistrar.setToolTipText("Presione el boton para registrar al paciente");
         this.PintarB(this.botonRegistrar, "Vista\\Imagenes\\guardarA.png");
         botonRegistrar.setBorderPainted(false);
         botonRegistrar.setOpaque(false);
-
 
         botonCancelar = new JButton();
         botonCancelar.setBounds(20, 405, 55, 30);
@@ -135,11 +136,11 @@ public class EditarPaciente extends JFrame implements ActionListener {
         // JTexfield
 
         nombrePacienteTxt = new JTextField(" ");
-        nombrePacienteTxt.setBounds(240,60, 95, 20);
+        nombrePacienteTxt.setBounds(240, 60, 95, 20);
         nombrePacienteTxt.setToolTipText("Ingrese el nombre del paciente");
 
         apellidoPacienteTxt = new JTextField(" ");
-        apellidoPacienteTxt.setBounds(240,125, 95, 20);
+        apellidoPacienteTxt.setBounds(240, 125, 95, 20);
         apellidoPacienteTxt.setToolTipText("Ingrese el nombre del paciente");
 
         cedulaPacienteTxt = new JTextField(" ");
@@ -202,11 +203,11 @@ public class EditarPaciente extends JFrame implements ActionListener {
 
     }
 
-    //Metodo para la accion de botones 
+    // Metodo para la accion de botones
     public void actionPerformed(ActionEvent e) {
 
-        //Metodo para insertar un elemento y enviarlo a la base de datos MySQL
-        if(e.getSource() == botonRegistrar){
+        // Metodo para insertar un elemento y enviarlo a la base de datos MySQL
+        if (e.getSource() == botonRegistrar) {
             try {
                 metodos.actualizarElementos();
             } catch (SQLException e1) {
@@ -215,38 +216,15 @@ public class EditarPaciente extends JFrame implements ActionListener {
             }
         }
 
-        if(e.getSource() == botonCancelar){
+        if (e.getSource() == botonCancelar) {
 
             metodos.Editar_Administrador();
         }
-       
+
     }
 
+    // Fin boton registrar
 
-
-
-    
-
-    private static void displayRow(String title, ResultSet rs) {
-        try {
-            System.out.println(title);
-            while (rs.next()) {
-                System.out.println(rs.getString("nombre") + " : "+ rs.getString("apellido") + " : "+  rs.getString("cedula") + " : " + rs.getString("edad") + " : " + rs.getString("transtorno") + " : " + rs.getString("sexo"));
-                System.out.println();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    
-
-            // Fin boton registrar
-
-       
-        
-
-   
     private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
@@ -258,10 +236,6 @@ public class EditarPaciente extends JFrame implements ActionListener {
         this.repaint();
     }
 
-
-
 }
-
-
 
 // Fin Clase principal

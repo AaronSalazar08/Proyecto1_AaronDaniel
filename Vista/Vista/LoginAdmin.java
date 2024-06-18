@@ -22,12 +22,16 @@ import java.awt.Image;
 
 public class LoginAdmin extends JFrame implements ActionListener {
 
+     // Metodo para la llamada de los metodos de las constantes mediante una instacia
+    // de la clase Metodos
     public void setMetodos(Metodos metodos) {
         this.metodos = metodos;
     }
 
+     // Instancia para la clase
     public static Metodos metodos;
 
+    // Declarando constantes
     public JPanel panelRegistro = new JPanel();
     public JLabel tituloLabel, usuarioLabel, claveLabel, logoPerfil, logoUsuario, logoClave;
     public JButton botonRegistrar, botonVolver;
@@ -164,7 +168,6 @@ public class LoginAdmin extends JFrame implements ActionListener {
         lbl.setIcon(this.icono);
         this.repaint();
 
-        // Metodo para poner imagines a JButton
     }
 
 }

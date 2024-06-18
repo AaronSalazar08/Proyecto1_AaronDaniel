@@ -238,7 +238,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         lbl.setIcon(this.icono);
         this.repaint();
 
-        // Metodo para poner imagines a JButton
+
     }
 
 }
