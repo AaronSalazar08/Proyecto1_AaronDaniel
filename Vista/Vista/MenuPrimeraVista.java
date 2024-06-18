@@ -20,10 +20,12 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
 
     // Declarando costantes
 
+    //Metodo para la llamada de los metodos de las constantes mediante una instacia de la clase Metodos
     public void setMetodos(Metodos metodos) {
         this.metodos = metodos;
     }
 
+    //Creando instancia hacia la clase Metodos 
     public static Metodos metodos;
 
     public JPanel panelPrimeraVista = new JPanel();
@@ -181,7 +183,6 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
         panelPrimeraVista.add(numero);
         panelPrimeraVista.add(botonAdministrativo);
         panelPrimeraVista.add(botonPaciente);
-        // panelPrimeraVista.add(labelDescripcion);
         panelPrimeraVista.add(botonSalir);
         panelPrimeraVista.add(logo);
         panelPrimeraVista.add(titulo2);
@@ -214,6 +215,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
 
     }
 
+    //Metodo para poder insertar imagenes a los JButton
     private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
@@ -226,7 +228,7 @@ public class MenuPrimeraVista extends JFrame implements ActionListener {
     }
 
     private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
-        // Labels
+        // JLabels
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(

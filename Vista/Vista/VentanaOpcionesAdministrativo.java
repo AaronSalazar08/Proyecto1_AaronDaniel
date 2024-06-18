@@ -206,7 +206,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
         }
         if (e.getSource() == botonEditar) {
 
-            metodos.Administrador_Editar();
+           
             metodos.buscarPorCedulaParaEditar();
 
         }
@@ -218,15 +218,7 @@ public class VentanaOpcionesAdministrativo extends JFrame implements ActionListe
 
         if (e.getSource() == botonEliminar) {
 
-            int confirmacion = JOptionPane.showConfirmDialog(null,
-                    "¿Estás seguro de que quieres eliminar al paciente seleccionado? ",
-                    "Confirmar",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                metodos.EliminarElementos();
-
-            }
+          metodos.EliminarElementos();
 
         }
 
