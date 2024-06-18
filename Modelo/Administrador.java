@@ -2,8 +2,10 @@ package Modelo;
 
 public class Administrador {
 
+    //Atributos 
     protected String cedula, nombre1, nombre2, apellido1, apellido2, login, clave;
 
+    //Contructor
     public Administrador(String cedula, String nombre1, String nombre2, String apellido1, String apellido2,
             String login, String clave) {
         this.cedula = cedula;
@@ -15,6 +17,7 @@ public class Administrador {
         this.clave = clave;
     }
 
+    //Metodos Get y Set
     public String getCedula() {
         return cedula;
     }

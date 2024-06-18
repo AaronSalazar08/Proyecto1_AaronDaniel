@@ -2,6 +2,7 @@ package Modelo;
 
 public class Paciente  {
 
+    //Atributos
   protected String transtorno;
   protected String nombre;
   protected String apellido;
@@ -9,7 +10,7 @@ public class Paciente  {
   protected String sexo;
   protected int edad;
 
-
+//Contructor
 public Paciente(String transtorno, String nombre, String apellido, String cedula, String sexo, int edad) {
     this.transtorno = transtorno;
     this.nombre = nombre;
@@ -19,7 +20,7 @@ public Paciente(String transtorno, String nombre, String apellido, String cedula
     this.edad = edad;
 }
 
-
+//Metodos get y set
 public String getTranstorno() {
     return transtorno;
 }

@@ -10,16 +10,18 @@ import Controlador.Metodos;
 import java.awt.Font;
 import java.awt.Image;
 
-
-
 public class AcercaNosotros extends JFrame implements ActionListener {
 
+    // Metodo para la llamada de los metodos de las constantes mediante una instacia
+    // de la clase Metodos
     public void setMetodos(Metodos metodos) {
         this.metodos = metodos;
     }
 
+    // Instancia para la clase
     public static Metodos metodos;
 
+    // Declarando costantes
     public JPanel panelAcercaNosotros = new JPanel();
     JLabel fotoAaron, fotoDaniel, informacionAaron, informacionDaniel, tituloLabel, acercaNosotros, informacionCentro;
     JButton botonVolver;
@@ -31,6 +33,7 @@ public class AcercaNosotros extends JFrame implements ActionListener {
 
     public AcercaNosotros() {
 
+        // Definiendo caracteristicas al JPanel
         this.setTitle("Acerca de Nosotros");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -47,6 +50,10 @@ public class AcercaNosotros extends JFrame implements ActionListener {
     }
 
     public void Elementos() {
+
+        // Inicializando constantes para el JPanel
+
+        // JLabel
 
         fotoAaron = new JLabel();
         fotoAaron.setBounds(50, 80, 140, 140);
@@ -74,28 +81,28 @@ public class AcercaNosotros extends JFrame implements ActionListener {
         acercaNosotros.setBounds(50, 250, 200, 40);
         acercaNosotros.setFont(fuenteTitulo);
 
-        informacionCentro = new JLabel("<html>Somos un centro de apoyo dedicado al tratamiento de los niños con transtornos mentales.<br>Hemos decidido contribuir a la sociedad con nuestro grano de arena para atender a estas personas, pues han sufrido en los últimos años graves discapacidades en sus alrededores.<br>  <br>Para más información contactenos por medio la mensajeria WhatsApp o vía Teléfono.</html>");
+        informacionCentro = new JLabel(
+                "<html>Somos un centro de apoyo dedicado al tratamiento de los niños con transtornos mentales.<br>Hemos decidido contribuir a la sociedad con nuestro grano de arena para atender a estas personas, pues han sufrido en los últimos años graves discapacidades en sus alrededores.<br>  <br>Para más información contactenos por medio la mensajeria WhatsApp o vía Teléfono.</html>");
         informacionCentro.setBounds(50, 250, 580, 200);
         informacionCentro.setFont(fuenteInformacion);
 
-         // Boton para volver al menu principal
-         botonVolver = new JButton("Volver");
-         botonVolver.setBounds(40, 500, 150, 30);
-         botonVolver.setForeground(new Color(255, 255, 255));
-         botonVolver.setBackground(new Color(53, 89, 252));
-         botonVolver.addActionListener(this);
-         // botonVolver.setOpaque(false);
-         // botonVolver.setContentAreaFilled(false);
+        // JBUTTON
+
+        // Boton para volver al menu principal
+        botonVolver = new JButton("Volver");
+        botonVolver.setBounds(40, 500, 150, 30);
+        botonVolver.setForeground(new Color(255, 255, 255));
+        botonVolver.setBackground(new Color(53, 89, 252));
+        botonVolver.addActionListener(this);
         botonVolver.setBorderPainted(false);
- 
-         
-          ImageIcon iconoVolver = new ImageIcon("Vista/Imagenes/volver (1).png");
-          botonVolver.setToolTipText("Atrás");
-          if (iconoVolver != null && iconoVolver.getImage() != null) {
-          Image imagenVolverAjustada = iconoVolver.getImage().getScaledInstance(55, 40,
-          Image.SCALE_SMOOTH);
-          botonVolver.setIcon(new ImageIcon(imagenVolverAjustada));
-          }
+
+        ImageIcon iconoVolver = new ImageIcon("Vista/Imagenes/volver (1).png");
+        botonVolver.setToolTipText("Atrás");
+        if (iconoVolver != null && iconoVolver.getImage() != null) {
+            Image imagenVolverAjustada = iconoVolver.getImage().getScaledInstance(55, 40,
+                    Image.SCALE_SMOOTH);
+            botonVolver.setIcon(new ImageIcon(imagenVolverAjustada));
+        }
 
         panelAcercaNosotros.add(fotoAaron);
         panelAcercaNosotros.add(fotoDaniel);
@@ -108,10 +115,12 @@ public class AcercaNosotros extends JFrame implements ActionListener {
 
     }
 
+    // Metodo para la accion de los botones
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == botonVolver){
+        if (e.getSource() == botonVolver) {
 
             metodos.AcercaNosotros_Principal();
         }
@@ -129,7 +138,6 @@ public class AcercaNosotros extends JFrame implements ActionListener {
         lbl.setIcon(this.icono);
         this.repaint();
 
-        // Metodo para poner imagines a JButton
     }
 
 }
