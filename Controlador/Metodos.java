@@ -56,6 +56,25 @@ public class Metodos {
 
         String SQL = "SELECT * FROM administrador WHERE Usuario = ? AND Clave = ?";
 
+<<<<<<< Updated upstream
+=======
+        if (rs.next()) {
+            // Si las credenciales son correctas
+            JOptionPane.showMessageDialog(null, "Bienvenido " + entradaUsuario);
+            ventanaLogin.setVisible(false);
+            ventanaPrincipal.setVisible(true);
+        } else {
+            // Si las credenciales son incorrectas
+            JOptionPane.showMessageDialog(null, "Credenciales incorrectas");
+            ventanaLogin.usuario_txt.setText(" ");
+            ventanaLogin.clave_psw.setText(" ");
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
+        e.printStackTrace();
+    } finally {
+>>>>>>> Stashed changes
         try {
             // Realizando conexión a la base de datos
             // Creando sentencia para dirigirla a la base de datos
