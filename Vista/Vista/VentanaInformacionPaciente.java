@@ -34,6 +34,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
         this.metodos = metodos;
     }
 
+    //Instancia para la clase Metodos 
     public static Metodos metodos;
 
      // Declarando constantes 
@@ -228,18 +229,7 @@ public class VentanaInformacionPaciente extends JFrame implements ActionListener
 
 
 
-    private static void displayRow(String title, ResultSet rs) {
-        try {
-            System.out.println(title);
-            while (rs.next()) {
-                System.out.println(rs.getString("nombre") + " : "+ rs.getString("apellido") + " : "+  rs.getString("cedula") + " : " + rs.getString("edad") + " : " + rs.getString("transtorno") + " : " + rs.getString("sexo"));
-                System.out.println();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+    
        
         
 
