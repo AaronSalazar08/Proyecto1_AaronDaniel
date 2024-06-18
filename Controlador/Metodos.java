@@ -48,8 +48,8 @@ public class Metodos {
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "091623");
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
             pst = con.prepareStatement(SQL);
             pst.setString(1, entradaUsuario);
             pst.setString(2, contrasenaString);
@@ -187,16 +187,16 @@ public class Metodos {
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
 
         // Prepare SQL statement for inserting record
-        String SQL = "INSERT INTO paciente (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('"
+        String SQL = "INSERT INTO pacientes (nombre, apellido, cedula, edad, transtorno, sexo) VALUES ('"
                 + entradaNombrePaciente + "', '" + entradaApellido + "', " + entradaCedulaPaciente + ", " + edadPaciente
-                + ", '" + transtornoSeleccionado + "', '" + sexoPaciente + "');";
+                + ", '" + transtornoSeleccionado + "', '" + edadPaciente + "');";
 
         // Establish connection with database
         try {
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "091623");
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
             Statement stmt = con.createStatement();
             // Execute SQL statement
             exito = stmt.executeUpdate(SQL);
@@ -242,12 +242,12 @@ public class Metodos {
             return;
         }
 
-        String SQL = "SELECT * FROM paciente WHERE cedula = ?";
+        String SQL = "SELECT * FROM pacientes WHERE cedula = ?";
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "091623");
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
             PreparedStatement pstmt = con.prepareStatement(SQL);
             pstmt.setString(1, cedulaBusqueda);
             rs = pstmt.executeQuery();
@@ -303,12 +303,12 @@ public class Metodos {
             return;
         }
 
-        String SQL = "SELECT * FROM paciente WHERE cedula = ?";
+        String SQL = "SELECT * FROM pacientes WHERE cedula = ?";
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "091623");
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
             PreparedStatement pstmt = con.prepareStatement(SQL);
             pstmt.setString(1, cedulaBusqueda);
             rs = pstmt.executeQuery();
@@ -396,7 +396,7 @@ public class Metodos {
         String sexoPaciente = masculinoSeleccionado ? "Masculino" : "Femenino";
 
         // Preparar la consulta SQL para actualizar el registro
-        String SQL = "UPDATE paciente SET Nombre='" + entradaNombrePaciente + "', Apellido='" + entradaApellido
+        String SQL = "UPDATE pacientes SET Nombre='" + entradaNombrePaciente + "', Apellido='" + entradaApellido
                 + "', Sexo='" + sexoPaciente + "', Edad=" + entradaEdadPaciente + ", Transtorno='"
                 + transtornoSeleccionado + "' WHERE Cedula='" + entradaCedulaAdministrador + "'";
 
@@ -405,12 +405,9 @@ public class Metodos {
         // Establecer la conexión con la base de datos
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "091623");
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
             PreparedStatement pstmt = con.prepareStatement(SQL);
-            
-            con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "091623");
             stmt = con.createStatement();
             exito = stmt.executeUpdate(SQL);
 
@@ -453,12 +450,12 @@ public class Metodos {
         Connection con = null;
         ResultSet rs = null;
 
-        String SQL = "SELECT * FROM paciente";
+        String SQL = "SELECT * FROM pacientes";
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "091623");
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
@@ -509,12 +506,12 @@ public class Metodos {
         ResultSet rs = null;
         PreparedStatement pst = null;
     
-        String SQL = "SELECT * FROM paciente WHERE cedula = ?";
+        String SQL = "SELECT * FROM pacientes WHERE cedula = ?";
     
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
-                    "root", "091623");
+                    "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
+                    "root", "Proverbios18.22");
             pst = con.prepareStatement(SQL);
             //pst.setString(1, ventanaAdministrador);
             rs = pst.executeQuery();
@@ -574,15 +571,15 @@ public class Metodos {
             Statement stmt = null;
             ResultSet rs = null;
     
-            String sqlEliminar = "DELETE FROM paciente where cedula = '" + cedula + "';";
+            String sqlEliminar = "DELETE FROM pacientes where cedula = '" + cedula + "';";
     
             try {
     
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/registrosolissalazar?verifyServerCertificate=false&useSSL=true",
+                        "jdbc:mysql://localhost:3306/centro_apoyo_solissalazar?verifyServerCertificate=false&useSSL=true",
                         "root",
-                        "091623");
+                        "Proverbios18.22");
                 con.setAutoCommit(true);
     
                 stmt = con.createStatement();

@@ -71,16 +71,17 @@ public class EditarPaciente extends JFrame implements ActionListener {
 
         // JButton
 
-        botonRegistrar = new JButton("");
-        botonRegistrar.setBounds(320, 395, 50, 40);
-        botonRegistrar.setForeground(Color.BLACK);
-        botonRegistrar.setBackground(new Color(255, 255, 255));
-        botonRegistrar.setFont(fuenteBoton);
+        botonRegistrar = new JButton("  Guardar");
+        botonRegistrar.setBounds(220, 405, 160, 30);
+        botonRegistrar.setForeground(Color.WHITE);
         botonRegistrar.addActionListener(this);
-        botonRegistrar.setToolTipText("Presione el boton para registrar al paciente");
-        this.PintarB(this.botonRegistrar, "Vista\\Imagenes\\guardarA.png");
-        botonRegistrar.setBorderPainted(false);
-        botonRegistrar.setOpaque(false);
+        botonRegistrar.setBackground(new Color(53, 89, 252));
+        botonRegistrar.setFont(fuenteBoton);
+        ImageIcon iconoRegistro = new ImageIcon("Vista/Imagenes/guardarBlanco.png");
+        Image imagenRegistro = iconoRegistro.getImage();
+        Image imagenEmpleadoAjustada = imagenRegistro.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEmpleadoAjustada = new ImageIcon(imagenEmpleadoAjustada);
+        botonRegistrar.setIcon(iconoEmpleadoAjustada);
 
         botonCancelar = new JButton();
         botonCancelar.setBounds(20, 405, 55, 30);
