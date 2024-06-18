@@ -10,8 +10,6 @@ public class Paciente  {
   protected int edad;
 
 
-
-
 public Paciente(String transtorno, String nombre, String apellido, String cedula, String sexo, int edad) {
     this.transtorno = transtorno;
     this.nombre = nombre;
